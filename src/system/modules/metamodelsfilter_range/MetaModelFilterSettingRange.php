@@ -105,7 +105,7 @@ class MetaModelFilterSettingRange extends MetaModelFilterSetting
 		$arrLabel = array(
 			($this->get('label') ? $this->get('label') : $objAttribute->getName()),
 			'GET: '.$this->get('urlparam')
-		):
+		);
 
 		return array(
 			$this->getParamName() => array
