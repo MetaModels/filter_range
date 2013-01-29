@@ -13,11 +13,6 @@
  * @license    LGPL.
  * @filesource
  */
-if (!defined('TL_ROOT'))
-{
-	die('You cannot access this file directly!');
-}
-
 
 /**
  * palettes
@@ -25,7 +20,7 @@ if (!defined('TL_ROOT'))
 
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['range extends default'] = array
 (
-	'+config' => array('attr_id', 'urlparam', 'attr_id2', 'label', 'template', 'moreequal', 'lessequal'),
+	'+config' => array('attr_id', 'attr_id2', 'urlparam', 'label', 'template', 'moreequal', 'lessequal'),
 );
 
 
@@ -77,4 +72,20 @@ $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['tofield'] = array
 	),
 );
 
-?>
+$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['attr_id2'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['attr_id2'],
+	'exclude'                 => true,
+	'inputType'               => 'select',
+	'options_callback'        => array('TableMetaModelFilterSetting', 'getAttributeNames'),
+	'eval'                    => array(
+		'doNotSaveEmpty'      => true,
+		'alwaysSave'          => true,
+		'submitOnChange'      => true,
+		'includeBlankOption'  => true,
+		'tl_class'            => 'w50',
+	),
+	'load_callback'           => array(array('TableMetaModelFilterSetting', 'attrIdToName')),
+	'save_callback'           => array(array('TableMetaModelFilterSetting', 'nameToAttrId')),
+);
+

@@ -13,11 +13,6 @@
  * @license    LGPL.
  * @filesource
  */
-if (!defined('TL_ROOT'))
-{
-	die('You cannot access this file directly!');
-}
-
 
 /**
  * Filter "value in range of 2 fields" for FE-filtering, based on filters by the meta models team.
@@ -45,7 +40,6 @@ class MetaModelFilterSettingRange extends MetaModelFilterSetting
 		}
 	}
 
-
 	/**
 	 * {@inheritdoc}
 	 */
@@ -55,6 +49,11 @@ class MetaModelFilterSettingRange extends MetaModelFilterSetting
 		$objAttribute = $objMetaModel->getAttributeById($this->get('attr_id'));
 		$objAttribute2 = $objMetaModel->getAttributeById($this->get('attr_id2'));
 
+		if (!$objAttribute2)
+		{
+			$objAttribute2 = $objAttribute;
+		}
+
 		$strParamName = $this->getParamName();
 		$strParamValue = $arrFilterUrl[$strParamName];
 		$strMore = $this->get('moreequal') ? '>=' : '>';
@@ -62,63 +61,64 @@ class MetaModelFilterSettingRange extends MetaModelFilterSetting
 
 		if ($objAttribute && $objAttribute2 && $strParamName && $strParamValue)
 		{
-			$objQuery = Database::getInstance()->prepare(sprintf(
+			$objFilter->addFilterRule(new MetaModelFilterRuleSimpleQuery(
+				sprintf(
 				'SELECT id FROM %s WHERE (?%s%s AND ?%s%s)',
 				$this->getMetaModel()->getTableName(),
 				$strLess,
 				$objAttribute2->getColName(),
 				$strMore,
 				$objAttribute->getColName()
-				))
-				->execute($strParamValue, $strParamValue);
-
-			$arrIds = $objQuery->fetchEach('id');
-
-			$objFilter->addFilterRule(new MetaModelFilterRuleStaticIdList($arrIds));
+				),
+				array($strParamValue, $strParamValue)
+				));
 			return;
 		}
 
 		$objFilter->addFilterRule(new MetaModelFilterRuleStaticIdList(NULL));
 	}
 
-
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getParameters()
+	public function getParameterFilterNames()
 	{
-		return ($strParamName = $this->getParamName()) ? array($strParamName) : array();
+		$strLabel = ($this->get('label') ? $this->get('label') : $this->getMetaModel()->getAttributeById($this->get('attr_id'))->getName());
+
+		return array(
+			$this->getParamName() => $strLabel
+		);
 	}
 
-
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getParameterDCA()
+	public function getParameterFilterWidgets($arrIds, $arrFilterUrl, $arrJumpTo, $blnAutoSubmit)
 	{
 		$objAttribute = $this->getMetaModel()->getAttributeById($this->get('attr_id'));
 
-		$objAttribute2 = $this->getMetaModel()->getAttributeById($this->get('attr_id2'));
-
-		$arrOptions = $objAttribute->getFilterOptions();
-
 		$arrLabel = array(
 			($this->get('label') ? $this->get('label') : $objAttribute->getName()),
-			'GET: '.$this->get('urlparam')
+			'GET: '.$this->getParamName()
 		);
 
 		return array(
-			$this->getParamName() => array
-			(
-				'label'     => $arrLabel,
-				'inputType' => 'text',
-				'eval'      => array(
-					'urlparam'     => $this->get('urlparam'),
-					'template'     => $this->get('template')
+			$this->getParamName() => $this->prepareFrontendFilterWidget(
+				array
+				(
+					'label'     => $arrLabel,
+					'inputType' => 'text',
+					'eval'      => array
+					(
+						'urlparam'     => $this->getParamName(),
+						'template'     => $this->get('template')
 					)
+				),
+				$arrFilterUrl,
+				$arrJumpTo,
+				$blnAutoSubmit
 			)
 		);
 	}
 }
 
-?>

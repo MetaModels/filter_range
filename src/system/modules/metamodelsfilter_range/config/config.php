@@ -22,14 +22,14 @@ if (!defined('TL_ROOT'))
 /**
  * Frontend filter
  */
- 
+
 // value in range of 2 fields
 $GLOBALS['METAMODELS']['filters']['range'] = array
 (
 	'class' => 'MetaModelFilterSettingRange',
 	'attr_filter' => array('numeric','decimal'),
-	'image' => 'system/modules/metamodels_frontendfilter/html/filter_frontend.png',
-	'info_callback' => array('MetaModelFrontendFilterBackend','infoCallback'),
+	'image' => 'system/modules/metamodels/html/filter_frontend.png',
+	'info_callback' => array('TableMetaModelFilterSetting','infoCallback'),
 );
 
 ?>

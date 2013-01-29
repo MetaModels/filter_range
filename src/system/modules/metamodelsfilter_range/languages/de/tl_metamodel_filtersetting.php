@@ -34,5 +34,6 @@ $GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['moreequal']    = array('Wert 
 $GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['lessequal']    = array('Wert 2 eingeschlossen', 'Standard: nicht eingeschlossen.');
 $GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['fromfield']    = array('Feld für Wert 1', 'FE-Feld für Wert 1 zeigen.');
 $GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['tofield']      = array('Feld für Wert 2', 'FE-Feld für Wert 2 zeigen.');
+$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['attr_id2']     = array('Attribut 2', 'Zweites Attribut, auf das sich diese Einstellung bezieht.');
 
 ?>
