@@ -10,10 +10,16 @@
  * @package    MetaModels
  * @subpackage FilterRange
  * @author     Christian de la Haye <service@delahaye.de>
+ * @author     Andreas Isaak <info@andreas-isaak.de>
  * @copyright  The MetaModels team.
  * @license    LGPL.
  * @filesource
  */
 
-$GLOBALS['TL_LANG']['MSC']['metamodels']['filter_range_from']    = '%s (from)';
-$GLOBALS['TL_LANG']['MSC']['metamodels']['filter_range_to']    = '%s (to)';
+/**
+ * Register the classes
+ */
+ClassLoader::addClasses(array
+(
+	'MetaModelFilterSettingRange'         => 'system/modules/metamodelsfilter_range/MetaModelFilterSettingRange.php',
+));

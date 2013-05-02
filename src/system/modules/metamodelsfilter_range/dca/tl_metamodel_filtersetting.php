@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The MetaModels extension allows the creation of multiple collections of custom items,
  * each with its own unique set of selectable attributes, with attribute extendability.
@@ -7,7 +8,7 @@
  *
  * PHP version 5
  * @package    MetaModels
- * @subpackage FrontendFilter
+ * @subpackage FilterRange
  * @author     Christian de la Haye <service@delahaye.de>
  * @copyright  The MetaModels team.
  * @license    LGPL.
@@ -34,7 +35,8 @@ $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['moreequal'] = array
 	'exclude'                 => true,
 	'default'                 => true,
 	'inputType'               => 'checkbox',
-	'eval'                    => array(
+	'eval'                    => array
+	(
 		'tl_class'            => 'w50',
 	),
 );
@@ -45,7 +47,8 @@ $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['lessequal'] = array
 	'exclude'                 => true,
 	'default'                 => true,
 	'inputType'               => 'checkbox',
-	'eval'                    => array(
+	'eval'                    => array
+	(
 		'tl_class'            => 'w50',
 	),
 );
@@ -56,7 +59,8 @@ $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['fromfield'] = array
 	'exclude'                 => true,
 	'default'                 => true,
 	'inputType'               => 'checkbox',
-	'eval'                    => array(
+	'eval'                    => array
+	(
 		'tl_class'            => 'w50',
 	),
 );
@@ -67,7 +71,8 @@ $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['tofield'] = array
 	'exclude'                 => true,
 	'default'                 => true,
 	'inputType'               => 'checkbox',
-	'eval'                    => array(
+	'eval'                    => array
+	(
 		'tl_class'            => 'w50',
 	),
 );
@@ -78,7 +83,8 @@ $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['attr_id2'] = array
 	'exclude'                 => true,
 	'inputType'               => 'select',
 	'options_callback'        => array('TableMetaModelFilterSetting', 'getAttributeNames'),
-	'eval'                    => array(
+	'eval'                    => array
+	(
 		'doNotSaveEmpty'      => true,
 		'alwaysSave'          => true,
 		'submitOnChange'      => true,
@@ -88,4 +94,3 @@ $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['attr_id2'] = array
 	'load_callback'           => array(array('TableMetaModelFilterSetting', 'attrIdToName')),
 	'save_callback'           => array(array('TableMetaModelFilterSetting', 'nameToAttrId')),
 );
-
