@@ -102,6 +102,8 @@ class MetaModelFilterSettingRange extends MetaModelFilterSetting
 			($this->get('label') ? $this->get('label') : $objAttribute->getName()),
 			'GET: '.$this->getParamName()
 		);
+		
+		$GLOBALS['MM_FILTER_PARAMS'][] = $this->getParamName();
 
 		return array(
 			$this->getParamName() => $this->prepareFrontendFilterWidget(
