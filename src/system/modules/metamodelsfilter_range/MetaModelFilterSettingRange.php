@@ -94,7 +94,7 @@ class MetaModelFilterSettingRange extends MetaModelFilterSetting
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getParameterFilterWidgets($arrIds, $arrFilterUrl, $arrJumpTo, $blnAutoSubmit, $blnHideClearFilter)
+	public function getParameterFilterWidgets($arrIds, $arrFilterUrl, $arrJumpTo, MetaModelFrontendFilterOptions $objFrontendFilterOptions)
 	{
 		$objAttribute = $this->getMetaModel()->getAttributeById($this->get('attr_id'));
 
@@ -119,7 +119,7 @@ class MetaModelFilterSettingRange extends MetaModelFilterSetting
 				),
 				$arrFilterUrl,
 				$arrJumpTo,
-				$blnAutoSubmit
+				$objFrontendFilterOptions
 			)
 		);
 	}
