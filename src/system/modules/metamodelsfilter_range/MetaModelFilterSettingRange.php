@@ -102,7 +102,7 @@ class MetaModelFilterSettingRange extends MetaModelFilterSetting
 			($this->get('label') ? $this->get('label') : $objAttribute->getName()),
 			'GET: '.$this->getParamName()
 		);
-		
+
 		$GLOBALS['MM_FILTER_PARAMS'][] = $this->getParamName();
 
 		return array(
@@ -122,5 +122,30 @@ class MetaModelFilterSettingRange extends MetaModelFilterSetting
 				$objFrontendFilterOptions
 			)
 		);
+	}
+
+	/**
+	 * Retrieve the attributes that are referenced in this filter setting.
+	 *
+	 * @return array
+	 */
+	public function getReferencedAttributes()
+	{
+		$objMetaModel  = $this->getMetaModel();
+		$objAttribute  = $objMetaModel->getAttributeById($this->get('attr_id'));
+		$objAttribute2 = $objMetaModel->getAttributeById($this->get('attr_id2'));
+		$arrResult     = array();
+
+		if ($objAttribute)
+		{
+			$arrResult[] = $objAttribute->getColName();
+		}
+
+		if ($objAttribute2)
+		{
+			$arrResult[] = $objAttribute2->getColName();
+		}
+
+		return $arrResult;
 	}
 }
