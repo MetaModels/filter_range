@@ -18,12 +18,8 @@
 /**
  * Frontend filter
  */
-
-// value in range of 2 fields
-$GLOBALS['METAMODELS']['filters']['range'] = array
-(
-	'class' => 'MetaModelFilterSettingRange',
-	'attr_filter' => array('numeric','decimal'),
-	'image' => 'system/modules/metamodelsfilter_range/html/filter_range.png',
-	'info_callback' => array('TableMetaModelFilterSetting','infoCallback'),
-);
+$GLOBALS['METAMODELS']['filters']['range']['class'] = 'MetaModelFilterSettingRange';
+$GLOBALS['METAMODELS']['filters']['range']['image'] = 'system/modules/metamodelsfilter_range/html/filter_range.png';
+$GLOBALS['METAMODELS']['filters']['range']['info_callback'] = array('TableMetaModelFilterSetting', 'infoCallback');
+$GLOBALS['METAMODELS']['filters']['range']['attr_filter'][] = 'numeric';
+$GLOBALS['METAMODELS']['filters']['range']['attr_filter'][] = 'decimal';
