@@ -8,15 +8,17 @@
  *
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  *
- * last-updated: 2013-05-13T07:59:00+02:00
+ * last-updated: 2013-07-01T12:16:55+02:00
  */
 
-
-$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['fromfield']['0'] = 'Champ pour la valeur 1';
-$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['fromfield']['1'] = 'Afficher un champ front office pour la valeur 1.';
-$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['lessequal']['0'] = 'Valeur 2 incluse';
-$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['lessequal']['1'] = 'Exclu par défaut.';
-$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['moreequal']['0'] = 'Valeur 1 incluse';
-$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['moreequal']['1'] = 'Exclu par défaut.';
-$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['tofield']['0']   = 'Champ pour la valeur 2';
-$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['tofield']['1']   = 'Afficher un champ front office pour la valeur 2.';
+$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['attr_id2']['0']      = 'Second attribut';
+$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['attr_id2']['1']      = 'Deuxième attribut concernant ce paramètre.';
+$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['fromfield']['0']     = 'Champ pour la valeur 1';
+$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['fromfield']['1']     = 'Afficher un champ front office pour la valeur 1.';
+$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['lessequal']['0']     = 'Valeur 2 incluse';
+$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['lessequal']['1']     = 'Exclu par défaut.';
+$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['moreequal']['0']     = 'Valeur 1 incluse';
+$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['moreequal']['1']     = 'Exclu par défaut.';
+$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['tofield']['0']       = 'Champ pour la valeur 2';
+$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['tofield']['1']       = 'Afficher un champ front office pour la valeur 2.';
+$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['typenames']['range'] = 'Valeur dans 2 champs';
