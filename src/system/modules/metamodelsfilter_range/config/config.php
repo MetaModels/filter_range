@@ -18,8 +18,12 @@
 /**
  * Frontend filter
  */
-$GLOBALS['METAMODELS']['filters']['range']['class'] = 'MetaModelFilterSettingRange';
+$GLOBALS['METAMODELS']['filters']['range']['class'] = 'MetaModels\Filter\Setting\Range';
 $GLOBALS['METAMODELS']['filters']['range']['image'] = 'system/modules/metamodelsfilter_range/html/filter_range.png';
 $GLOBALS['METAMODELS']['filters']['range']['info_callback'] = array('TableMetaModelFilterSetting', 'infoCallback');
 $GLOBALS['METAMODELS']['filters']['range']['attr_filter'][] = 'numeric';
 $GLOBALS['METAMODELS']['filters']['range']['attr_filter'][] = 'decimal';
+
+// non composerized Contao 2.X autoload support.
+$GLOBALS['MM_AUTOLOAD'][] = dirname(__DIR__);
+$GLOBALS['MM_AUTOLOAD'][] = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'deprecated';

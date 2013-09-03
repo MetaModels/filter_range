@@ -21,5 +21,7 @@
  */
 ClassLoader::addClasses(array
 (
-	'MetaModelFilterSettingRange'         => 'system/modules/metamodelsfilter_range/MetaModelFilterSettingRange.php',
+	'MetaModels\Filter\Setting\Range' => 'system/modules/metamodelsfilter_range/MetaModels/Filter/Setting/Range.php',
+
+	'MetaModelFilterSettingRange'     => 'system/modules/metamodelsfilter_range/deprecated/MetaModelFilterSettingRange.php',
 ));

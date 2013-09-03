@@ -15,14 +15,21 @@
  * @filesource
  */
 
+namespace MetaModels\Filter\Setting;
+
+use MetaModels\Filter\IFilter;
+use MetaModels\Filter\Rules\SimpleQuery;
+use MetaModels\Filter\Rules\StaticIdList;
+use MetaModels\FrontendIntegration\FrontendFilterOptions;
+
 /**
  * Filter "value in range of 2 fields" for FE-filtering, based on filters by the meta models team.
  *
- * @package	   MetaModels
+ * @package    MetaModels
  * @subpackage FilterRange
  * @author     Christian de la Haye <service@delahaye.de>
  */
-class MetaModelFilterSettingRange extends MetaModelFilterSetting
+class Range extends Simple
 {
 	/**
 	 * {@inheritdoc}
@@ -44,7 +51,7 @@ class MetaModelFilterSettingRange extends MetaModelFilterSetting
 	/**
 	 * {@inheritdoc}
 	 */
-	public function prepareRules(IMetaModelFilter $objFilter, $arrFilterUrl)
+	public function prepareRules(IFilter $objFilter, $arrFilterUrl)
 	{
 		$objMetaModel = $this->getMetaModel();
 		$objAttribute = $objMetaModel->getAttributeById($this->get('attr_id'));
@@ -62,21 +69,21 @@ class MetaModelFilterSettingRange extends MetaModelFilterSetting
 
 		if ($objAttribute && $objAttribute2 && $strParamName && $strParamValue)
 		{
-			$objFilter->addFilterRule(new MetaModelFilterRuleSimpleQuery(
+			$objFilter->addFilterRule(new SimpleQuery(
 				sprintf(
-				'SELECT id FROM %s WHERE (?%s%s AND ?%s%s)',
-				$this->getMetaModel()->getTableName(),
-				$strLess,
-				$objAttribute2->getColName(),
-				$strMore,
-				$objAttribute->getColName()
+					'SELECT id FROM %s WHERE (?%s%s AND ?%s%s)',
+					$this->getMetaModel()->getTableName(),
+					$strLess,
+					$objAttribute2->getColName(),
+					$strMore,
+					$objAttribute->getColName()
 				),
 				array($strParamValue, $strParamValue)
-				));
+			));
 			return;
 		}
 
-		$objFilter->addFilterRule(new MetaModelFilterRuleStaticIdList(NULL));
+		$objFilter->addFilterRule(new StaticIdList(NULL));
 	}
 
 	/**
@@ -94,7 +101,7 @@ class MetaModelFilterSettingRange extends MetaModelFilterSetting
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getParameterFilterWidgets($arrIds, $arrFilterUrl, $arrJumpTo, MetaModelFrontendFilterOptions $objFrontendFilterOptions)
+	public function getParameterFilterWidgets($arrIds, $arrFilterUrl, $arrJumpTo, FrontendFilterOptions $objFrontendFilterOptions)
 	{
 		$objAttribute = $this->getMetaModel()->getAttributeById($this->get('attr_id'));
 
