@@ -82,7 +82,7 @@ $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['attr_id2'] = array
 	'label'                   => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['attr_id2'],
 	'exclude'                 => true,
 	'inputType'               => 'select',
-	'options_callback'        => array('TableMetaModelFilterSetting', 'getAttributeNames'),
+	'options_callback'        => array('MetaModels\Dca\Filter', 'getAttributeNames'),
 	'eval'                    => array
 	(
 		'doNotSaveEmpty'      => true,
@@ -91,6 +91,6 @@ $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['attr_id2'] = array
 		'includeBlankOption'  => true,
 		'tl_class'            => 'w50',
 	),
-	'load_callback'           => array(array('TableMetaModelFilterSetting', 'attrIdToName')),
-	'save_callback'           => array(array('TableMetaModelFilterSetting', 'nameToAttrId')),
+	'load_callback'           => array(array('MetaModels\Dca\Filter', 'attrIdToName')),
+	'save_callback'           => array(array('MetaModels\Dca\Filter', 'nameToAttrId')),
 );
