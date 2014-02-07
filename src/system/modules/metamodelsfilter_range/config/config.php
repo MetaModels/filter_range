@@ -18,12 +18,15 @@
 /**
  * Frontend filter
  */
-$GLOBALS['METAMODELS']['filters']['range']['class'] = 'MetaModels\Filter\Setting\Range';
-$GLOBALS['METAMODELS']['filters']['range']['image'] = 'system/modules/metamodelsfilter_range/html/filter_range.png';
-$GLOBALS['METAMODELS']['filters']['range']['info_callback'] = array('MetaModels\Dca\Filter', 'infoCallback');
+$GLOBALS['METAMODELS']['filters']['range']['class']         = 'MetaModels\Filter\Setting\Range';
+$GLOBALS['METAMODELS']['filters']['range']['image']         = 'system/modules/metamodelsfilter_range/html/filter_range.png';
+$GLOBALS['METAMODELS']['filters']['range']['info_callback'] = array('MetaModels\DcGeneral\Events\Table\FilterSetting\DrawSetting', 'modelToLabelWithAttributeAndUrlParam');
 $GLOBALS['METAMODELS']['filters']['range']['attr_filter'][] = 'numeric';
 $GLOBALS['METAMODELS']['filters']['range']['attr_filter'][] = 'decimal';
 
-// non composerized Contao 2.X autoload support.
+// Non composerized Contao 2.X autoload support.
 $GLOBALS['MM_AUTOLOAD'][] = dirname(__DIR__);
 $GLOBALS['MM_AUTOLOAD'][] = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'deprecated';
+
+
+$GLOBALS['TL_EVENTS'][\ContaoCommunityAlliance\Contao\EventDispatcher\Event\CreateEventDispatcherEvent::NAME][] = 'MetaModels\DcGeneral\Events\Filter\Setting\Range\Subscriber::registerEvents';
