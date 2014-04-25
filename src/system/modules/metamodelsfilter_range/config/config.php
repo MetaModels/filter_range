@@ -24,9 +24,4 @@ $GLOBALS['METAMODELS']['filters']['range']['info_callback'] = array('MetaModels\
 $GLOBALS['METAMODELS']['filters']['range']['attr_filter'][] = 'numeric';
 $GLOBALS['METAMODELS']['filters']['range']['attr_filter'][] = 'decimal';
 
-// Non composerized Contao 2.X autoload support.
-$GLOBALS['MM_AUTOLOAD'][] = dirname(__DIR__);
-$GLOBALS['MM_AUTOLOAD'][] = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'deprecated';
-
-
 $GLOBALS['TL_EVENTS'][\ContaoCommunityAlliance\Contao\EventDispatcher\Event\CreateEventDispatcherEvent::NAME][] = 'MetaModels\DcGeneral\Events\Filter\Setting\Range\Subscriber::registerEvents';
