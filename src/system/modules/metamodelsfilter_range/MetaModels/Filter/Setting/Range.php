@@ -46,6 +46,8 @@ class Range extends Simple
 		{
 			return $objAttribute->getColName();
 		}
+
+		return null;
 	}
 
 	/**
@@ -53,8 +55,8 @@ class Range extends Simple
 	 */
 	public function prepareRules(IFilter $objFilter, $arrFilterUrl)
 	{
-		$objMetaModel = $this->getMetaModel();
-		$objAttribute = $objMetaModel->getAttributeById($this->get('attr_id'));
+		$objMetaModel  = $this->getMetaModel();
+		$objAttribute  = $objMetaModel->getAttributeById($this->get('attr_id'));
 		$objAttribute2 = $objMetaModel->getAttributeById($this->get('attr_id2'));
 
 		if (!$objAttribute2)
@@ -62,10 +64,10 @@ class Range extends Simple
 			$objAttribute2 = $objAttribute;
 		}
 
-		$strParamName = $this->getParamName();
+		$strParamName  = $this->getParamName();
 		$strParamValue = $arrFilterUrl[$strParamName];
-		$strMore = $this->get('moreequal') ? '>=' : '>';
-		$strLess = $this->get('lessequal') ? '<=' : '<';
+		$strMore       = $this->get('moreequal') ? '>=' : '>';
+		$strLess       = $this->get('lessequal') ? '<=' : '<';
 
 		if ($objAttribute && $objAttribute2 && $strParamName && $strParamValue)
 		{
@@ -83,7 +85,7 @@ class Range extends Simple
 			return;
 		}
 
-		$objFilter->addFilterRule(new StaticIdList(NULL));
+		$objFilter->addFilterRule(new StaticIdList(null));
 	}
 
 	/**
@@ -91,7 +93,7 @@ class Range extends Simple
 	 */
 	public function getParameterFilterNames()
 	{
-		$strLabel = ($this->get('label') ? $this->get('label') : $this->getMetaModel()->getAttributeById($this->get('attr_id'))->getName());
+		$strLabel = ($this->get('label') ?: $this->getMetaModel()->getAttributeById($this->get('attr_id'))->getName());
 
 		return array(
 			$this->getParamName() => $strLabel
@@ -101,7 +103,12 @@ class Range extends Simple
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getParameterFilterWidgets($arrIds, $arrFilterUrl, $arrJumpTo, FrontendFilterOptions $objFrontendFilterOptions)
+	public function getParameterFilterWidgets(
+		$arrIds,
+		$arrFilterUrl,
+		$arrJumpTo,
+		FrontendFilterOptions $objFrontendFilterOptions
+	)
 	{
 		$objAttribute = $this->getMetaModel()->getAttributeById($this->get('attr_id'));
 

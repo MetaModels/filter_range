@@ -15,19 +15,10 @@
  * @filesource
  */
 
-/**
- * palettes
- */
-
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['range extends default'] = array
 (
 	'+config' => array('attr_id', 'attr_id2', 'urlparam', 'label', 'template', 'moreequal', 'lessequal'),
 );
-
-
-/**
- * fields
- */
 
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['moreequal'] = array
 (
