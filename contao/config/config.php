@@ -20,13 +20,13 @@
  */
 $GLOBALS['METAMODELS']['filters']['range']['class']         = 'MetaModels\Filter\Setting\Range';
 $GLOBALS['METAMODELS']['filters']['range']['image']         =
-	'system/modules/metamodelsfilter_range/html/filter_range.png';
+    'system/modules/metamodelsfilter_range/html/filter_range.png';
 $GLOBALS['METAMODELS']['filters']['range']['info_callback'] = array(
-	'MetaModels\DcGeneral\Events\Table\FilterSetting\DrawSetting',
-	'modelToLabelWithAttributeAndUrlParam'
+    'MetaModels\DcGeneral\Events\Table\FilterSetting\DrawSetting',
+    'modelToLabelWithAttributeAndUrlParam'
 );
 $GLOBALS['METAMODELS']['filters']['range']['attr_filter'][] = 'numeric';
 $GLOBALS['METAMODELS']['filters']['range']['attr_filter'][] = 'decimal';
 
 $GLOBALS['TL_EVENTS'][\ContaoCommunityAlliance\Contao\EventDispatcher\Event\CreateEventDispatcherEvent::NAME][] =
-	'MetaModels\DcGeneral\Events\Filter\Setting\Range\Subscriber::registerEvents';
+    'MetaModels\DcGeneral\Events\Filter\Setting\Range\Subscriber::registerEvents';

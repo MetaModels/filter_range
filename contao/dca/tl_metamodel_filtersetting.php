@@ -17,68 +17,68 @@
 
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['range extends default'] = array
 (
-	'+config' => array('attr_id', 'attr_id2', 'urlparam', 'label', 'template', 'moreequal', 'lessequal'),
+    '+config' => array('attr_id', 'attr_id2', 'urlparam', 'label', 'template', 'moreequal', 'lessequal'),
 );
 
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['moreequal'] = array
 (
-	'label'                   => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['moreequal'],
-	'exclude'                 => true,
-	'default'                 => true,
-	'inputType'               => 'checkbox',
-	'eval'                    => array
-	(
-		'tl_class'            => 'w50',
-	),
+    'label'                   => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['moreequal'],
+    'exclude'                 => true,
+    'default'                 => true,
+    'inputType'               => 'checkbox',
+    'eval'                    => array
+    (
+        'tl_class'            => 'w50',
+    ),
 );
 
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['lessequal'] = array
 (
-	'label'                   => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['lessequal'],
-	'exclude'                 => true,
-	'default'                 => true,
-	'inputType'               => 'checkbox',
-	'eval'                    => array
-	(
-		'tl_class'            => 'w50',
-	),
+    'label'                   => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['lessequal'],
+    'exclude'                 => true,
+    'default'                 => true,
+    'inputType'               => 'checkbox',
+    'eval'                    => array
+    (
+        'tl_class'            => 'w50',
+    ),
 );
 
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['fromfield'] = array
 (
-	'label'                   => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['fromfield'],
-	'exclude'                 => true,
-	'default'                 => true,
-	'inputType'               => 'checkbox',
-	'eval'                    => array
-	(
-		'tl_class'            => 'w50',
-	),
+    'label'                   => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['fromfield'],
+    'exclude'                 => true,
+    'default'                 => true,
+    'inputType'               => 'checkbox',
+    'eval'                    => array
+    (
+        'tl_class'            => 'w50',
+    ),
 );
 
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['tofield'] = array
 (
-	'label'                   => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['tofield'],
-	'exclude'                 => true,
-	'default'                 => true,
-	'inputType'               => 'checkbox',
-	'eval'                    => array
-	(
-		'tl_class'            => 'w50',
-	),
+    'label'                   => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['tofield'],
+    'exclude'                 => true,
+    'default'                 => true,
+    'inputType'               => 'checkbox',
+    'eval'                    => array
+    (
+        'tl_class'            => 'w50',
+    ),
 );
 
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['attr_id2'] = array
 (
-	'label'                   => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['attr_id2'],
-	'exclude'                 => true,
-	'inputType'               => 'select',
-	'eval'                    => array
-	(
-		'doNotSaveEmpty'      => true,
-		'alwaysSave'          => true,
-		'submitOnChange'      => true,
-		'includeBlankOption'  => true,
-		'tl_class'            => 'w50',
-	),
+    'label'                   => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['attr_id2'],
+    'exclude'                 => true,
+    'inputType'               => 'select',
+    'eval'                    => array
+    (
+        'doNotSaveEmpty'      => true,
+        'alwaysSave'          => true,
+        'submitOnChange'      => true,
+        'includeBlankOption'  => true,
+        'tl_class'            => 'w50',
+    ),
 );

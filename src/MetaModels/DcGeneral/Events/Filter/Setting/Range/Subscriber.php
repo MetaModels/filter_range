@@ -30,56 +30,53 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
  *
  * @package MetaModels\DcGeneral\Events\Filter\Setting\Range
  */
-class Subscriber
-	extends BaseSubscriber
+class Subscriber extends BaseSubscriber
 {
-	/**
-	 * Register all listeners to handle creation of a data container.
-	 *
-	 * @param CreateEventDispatcherEvent $event The event.
-	 *
-	 * @return void
-	 */
-	public static function registerEvents(CreateEventDispatcherEvent $event)
-	{
-		$dispatcher = $event->getEventDispatcher();
-		// Handlers for build data definition.
-		self::registerBuildDataDefinitionFor(
-			'tl_metamodel_filtersetting',
-			$dispatcher,
-			__CLASS__ . '::registerTableMetaModelFilterSettingEvents'
-		);
-	}
+    /**
+     * Register all listeners to handle creation of a data container.
+     *
+     * @param CreateEventDispatcherEvent $event The event.
+     *
+     * @return void
+     */
+    public static function registerEvents(CreateEventDispatcherEvent $event)
+    {
+        $dispatcher = $event->getEventDispatcher();
+        // Handlers for build data definition.
+        self::registerBuildDataDefinitionFor(
+            'tl_metamodel_filtersetting',
+            $dispatcher,
+            __CLASS__ . '::registerTableMetaModelFilterSettingEvents'
+        );
+    }
 
-	/**
-	 * Register the events for table tl_metamodel_filtersetting.
-	 *
-	 * @param BuildDataDefinitionEvent $event The event being processed.
-	 *
-	 * @return void
-	 */
-	public static function registerTableMetaModelFilterSettingEvents(BuildDataDefinitionEvent $event)
-	{
-		static $registered;
-		if ($registered)
-		{
-			return;
-		}
-		$registered = true;
-		$dispatcher = $event->getDispatcher();
+    /**
+     * Register the events for table tl_metamodel_filtersetting.
+     *
+     * @param BuildDataDefinitionEvent $event The event being processed.
+     *
+     * @return void
+     */
+    public static function registerTableMetaModelFilterSettingEvents(BuildDataDefinitionEvent $event)
+    {
+        static $registered;
+        if ($registered) {
+            return;
+        }
+        $registered = true;
+        $dispatcher = $event->getDispatcher();
 
-		self::registerListeners(
-			array(
-				GetPropertyOptionsEvent::NAME
-				=> 'MetaModels\DcGeneral\Events\Table\FilterSetting\PropertyAttributeId::getOptions',
-				DecodePropertyValueForWidgetEvent::NAME
-				=> 'MetaModels\DcGeneral\Events\Table\FilterSetting\PropertyAttributeId::decodeValue',
-				EncodePropertyValueFromWidgetEvent::NAME
-				=> 'MetaModels\DcGeneral\Events\Table\FilterSetting\PropertyAttributeId::encodeValue'
-			),
-			$dispatcher,
-			array('tl_metamodel_filtersetting', 'attr_id2')
-		);
-	}
+        self::registerListeners(
+            array(
+                GetPropertyOptionsEvent::NAME
+                => 'MetaModels\DcGeneral\Events\Table\FilterSetting\PropertyAttributeId::getOptions',
+                DecodePropertyValueForWidgetEvent::NAME
+                => 'MetaModels\DcGeneral\Events\Table\FilterSetting\PropertyAttributeId::decodeValue',
+                EncodePropertyValueFromWidgetEvent::NAME
+                => 'MetaModels\DcGeneral\Events\Table\FilterSetting\PropertyAttributeId::encodeValue'
+            ),
+            $dispatcher,
+            array('tl_metamodel_filtersetting', 'attr_id2')
+        );
+    }
 }
-
