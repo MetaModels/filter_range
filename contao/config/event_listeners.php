@@ -15,12 +15,19 @@
  * @filesource
  */
 
+use MetaModels\DcGeneral\Events\Filter\Setting\Range\Subscriber;
+use MetaModels\Events\MetaModelsBootEvent;
 use MetaModels\Filter\Setting\Events\CreateFilterSettingFactoryEvent;
 use MetaModels\Filter\Setting\RangeFilterSettingTypeFactory;
 use MetaModels\MetaModelsEvents;
 
 return array
 (
+    MetaModelsEvents::SUBSYSTEM_BOOT_BACKEND => array(
+        function (MetaModelsBootEvent $event) {
+            new Subscriber($event->getServiceContainer());
+        }
+    ),
     MetaModelsEvents::FILTER_SETTING_FACTORY_CREATE => array(
         function (CreateFilterSettingFactoryEvent $event) {
             $event->getFactory()->addTypeFactory(new RangeFilterSettingTypeFactory());

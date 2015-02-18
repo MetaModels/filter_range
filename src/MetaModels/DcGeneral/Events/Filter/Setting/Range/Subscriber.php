@@ -6,8 +6,9 @@
  * data in each collection.
  *
  * PHP version 5
+ *
  * @package    MetaModels
- * @subpackage Core
+ * @subpackage FilterRange
  * @author     Christian Schiffler <c.schiffler@cyberspectrum.de>
  * @copyright  The MetaModels team.
  * @license    LGPL.
@@ -16,14 +17,12 @@
 
 namespace MetaModels\DcGeneral\Events\Filter\Setting\Range;
 
-use ContaoCommunityAlliance\Contao\EventDispatcher\Event\CreateEventDispatcherEvent;
 use ContaoCommunityAlliance\DcGeneral\Contao\View\Contao2BackendView\Event\DecodePropertyValueForWidgetEvent;
 use ContaoCommunityAlliance\DcGeneral\Contao\View\Contao2BackendView\Event\EncodePropertyValueFromWidgetEvent;
 use ContaoCommunityAlliance\DcGeneral\Contao\View\Contao2BackendView\Event\GetPropertyOptionsEvent;
-use ContaoCommunityAlliance\DcGeneral\Factory\Event\BuildDataDefinitionEvent;
+use ContaoCommunityAlliance\DcGeneral\Data\ModelInterface;
 use MetaModels\DcGeneral\Events\BaseSubscriber;
-use Symfony\Component\EventDispatcher\Event;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use MetaModels\IMetaModel;
 
 /**
  * Central event subscriber implementation.
@@ -33,50 +32,139 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 class Subscriber extends BaseSubscriber
 {
     /**
-     * Register all listeners to handle creation of a data container.
-     *
-     * @param CreateEventDispatcherEvent $event The event.
-     *
-     * @return void
+     * {@inheritdoc}
      */
-    public static function registerEvents(CreateEventDispatcherEvent $event)
+    protected function registerEventsInDispatcher()
     {
-        $dispatcher = $event->getEventDispatcher();
-        // Handlers for build data definition.
-        self::registerBuildDataDefinitionFor(
-            'tl_metamodel_filtersetting',
-            $dispatcher,
-            __CLASS__ . '::registerTableMetaModelFilterSettingEvents'
-        );
+        $this
+            ->addListener(
+                GetPropertyOptionsEvent::NAME,
+                array($this, 'getAttributeIdOptions')
+            )
+            ->addListener(
+                DecodePropertyValueForWidgetEvent::NAME,
+                array($this, 'decodeAttributeIdValue')
+            )
+            ->addListener(
+                EncodePropertyValueFromWidgetEvent::NAME,
+                array($this, 'encodeAttributeIdValue')
+            );
     }
 
     /**
-     * Register the events for table tl_metamodel_filtersetting.
+     * Retrieve the MetaModel attached to the model filter setting.
      *
-     * @param BuildDataDefinitionEvent $event The event being processed.
+     * @param ModelInterface $model The model for which to retrieve the MetaModel.
+     *
+     * @return IMetaModel
+     */
+    public function getMetaModel(ModelInterface $model)
+    {
+        $filterSetting = $this->getServiceContainer()->getFilterFactory()->createCollection($model->getProperty('fid'));
+
+        return $filterSetting->getMetaModel();
+    }
+
+    /**
+     * Prepares a option list with alias => name connection for all attributes.
+     *
+     * This is used in the attr_id select box.
+     *
+     * @param GetPropertyOptionsEvent $event The event.
      *
      * @return void
      */
-    public static function registerTableMetaModelFilterSettingEvents(BuildDataDefinitionEvent $event)
+    public function getAttributeIdOptions(GetPropertyOptionsEvent $event)
     {
-        static $registered;
-        if ($registered) {
+        if (($event->getEnvironment()->getDataDefinition()->getName() !== 'tl_metamodel_filtersetting')
+            || ($event->getPropertyName() !== 'attr_id2')) {
             return;
         }
-        $registered = true;
-        $dispatcher = $event->getDispatcher();
 
-        self::registerListeners(
-            array(
-                GetPropertyOptionsEvent::NAME
-                => 'MetaModels\DcGeneral\Events\Table\FilterSetting\PropertyAttributeId::getOptions',
-                DecodePropertyValueForWidgetEvent::NAME
-                => 'MetaModels\DcGeneral\Events\Table\FilterSetting\PropertyAttributeId::decodeValue',
-                EncodePropertyValueFromWidgetEvent::NAME
-                => 'MetaModels\DcGeneral\Events\Table\FilterSetting\PropertyAttributeId::encodeValue'
-            ),
-            $dispatcher,
-            array('tl_metamodel_filtersetting', 'attr_id2')
-        );
+        $result = array();
+        $model  = $event->getModel();
+
+        $metaModel   = $this->getMetaModel($model);
+        $typeFactory = $this
+            ->getServiceContainer()
+            ->getFilterFactory()
+            ->getTypeFactory($model->getProperty('type'));
+
+        $typeFilter = null;
+        if ($typeFactory) {
+            $typeFilter = $typeFactory->getKnownAttributeTypes();
+        }
+
+        foreach ($metaModel->getAttributes() as $attribute) {
+            $typeName = $attribute->get('type');
+
+            if ($typeFilter && (!in_array($typeName, $typeFilter))) {
+                continue;
+            }
+
+            $strSelectVal          = $metaModel->getTableName() .'_' . $attribute->getColName();
+            $result[$strSelectVal] = $attribute->getName() . ' [' . $typeName . ']';
+        }
+
+        $event->setOptions($result);
+    }
+
+    /**
+     * Translates an attribute id to a generated alias {@see getAttributeNames()}.
+     *
+     * @param DecodePropertyValueForWidgetEvent $event The event.
+     *
+     * @return void
+     */
+    public function decodeAttributeIdValue(DecodePropertyValueForWidgetEvent $event)
+    {
+        if (($event->getEnvironment()->getDataDefinition()->getName() !== 'tl_metamodel_filtersetting')
+            || ($event->getProperty() !== 'attr_id2')) {
+            return;
+        }
+
+        $model     = $event->getModel();
+        $metaModel = $this->getMetaModel($model);
+        $value     = $event->getValue();
+
+        if (!($metaModel && $value)) {
+            return;
+        }
+
+        $attribute = $metaModel->getAttributeById($value);
+        if ($attribute) {
+            $event->setValue($metaModel->getTableName() .'_' . $attribute->getColName());
+        }
+    }
+
+    /**
+     * Translates an generated alias {@see getAttributeNames()} to the corresponding attribute id.
+     *
+     * @param EncodePropertyValueFromWidgetEvent $event The event.
+     *
+     * @return void
+     */
+    public function encodeAttributeIdValue(EncodePropertyValueFromWidgetEvent $event)
+    {
+        if (($event->getEnvironment()->getDataDefinition()->getName() !== 'tl_metamodel_filtersetting')
+            || ($event->getProperty() !== 'attr_id2')) {
+            return;
+        }
+
+        $model     = $event->getModel();
+        $metaModel = $this->getMetaModel($model);
+        $value     = $event->getValue();
+
+        if (!($metaModel && $value)) {
+            return;
+        }
+
+        $value = str_replace($metaModel->getTableName() . '_', '', $value);
+
+        $attribute = $metaModel->getAttribute($value);
+
+        if ($attribute) {
+            $event->setValue($attribute->get('id'));
+        }
     }
 }
