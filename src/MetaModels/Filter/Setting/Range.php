@@ -21,7 +21,8 @@
 namespace MetaModels\Filter\Setting;
 
 use MetaModels\Filter\IFilter;
-use MetaModels\Filter\Rules\SimpleQuery;
+use MetaModels\Filter\Rules\Comparing\GreaterThan;
+use MetaModels\Filter\Rules\Comparing\LessThan;
 use MetaModels\Filter\Rules\StaticIdList;
 use MetaModels\FrontendIntegration\FrontendFilterOptions;
 
@@ -49,21 +50,12 @@ class Range extends Simple
 
         $strParamName  = $this->getParamName();
         $strParamValue = $arrFilterUrl[$strParamName];
-        $strMore       = $this->get('moreequal') ? '>=' : '>';
-        $strLess       = $this->get('lessequal') ? '<=' : '<';
 
         if ($objAttribute && $objAttribute2 && $strParamName && $strParamValue) {
-            $objFilter->addFilterRule(new SimpleQuery(
-                sprintf(
-                    'SELECT id FROM %s WHERE (?%s%s AND ?%s%s)',
-                    $this->getMetaModel()->getTableName(),
-                    $strLess,
-                    $objAttribute2->getColName(),
-                    $strMore,
-                    $objAttribute->getColName()
-                ),
-                array($strParamValue, $strParamValue)
-            ));
+            $objFilter
+                ->addFilterRule(new LessThan($objAttribute, $strParamValue, (bool) $this->get('moreequal')))
+                ->addFilterRule(new GreaterThan($objAttribute2, $strParamValue, (bool) $this->get('lessequal')));
+
             return;
         }
 
