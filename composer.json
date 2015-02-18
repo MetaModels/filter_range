@@ -37,9 +37,8 @@
     "metamodels/core": "~2.0"
   },
   "require-dev": {
-    "metamodels/php-coding-standard": "dev-master",
-    "cyberspectrum/contao-toolbox": "dev-master",
-    "phpunit/phpunit": ">=3.7.10,<4-dev"
+    "cyberspectrum/contao-toolbox": "~0.6",
+    "phpcq/all-tasks": "~1.0"
   },
   "conflict": {
     "contao/core": "3.4.0"
