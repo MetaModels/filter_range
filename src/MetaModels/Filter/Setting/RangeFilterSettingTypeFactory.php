@@ -30,7 +30,7 @@ class RangeFilterSettingTypeFactory extends AbstractFilterSettingTypeFactory
         parent::__construct();
 
         $this
-            ->setTypeName('fromto')
+            ->setTypeName('range')
             ->setTypeIcon('system/modules/metamodelsfilter_range/html/filter_range.png')
             ->setTypeClass('MetaModels\Filter\Setting\Range')
             ->allowAttributeTypes('numeric', 'decimal');
