@@ -77,7 +77,8 @@ class Subscriber extends BaseSubscriber
     public function getAttributeIdOptions(GetPropertyOptionsEvent $event)
     {
         if (($event->getEnvironment()->getDataDefinition()->getName() !== 'tl_metamodel_filtersetting')
-            || ($event->getPropertyName() !== 'attr_id2')) {
+            || ($event->getPropertyName() !== 'attr_id2')
+            || ($event->getModel()->getProperty('type') !== 'range')) {
             return;
         }
 
@@ -119,7 +120,8 @@ class Subscriber extends BaseSubscriber
     public function decodeAttributeIdValue(DecodePropertyValueForWidgetEvent $event)
     {
         if (($event->getEnvironment()->getDataDefinition()->getName() !== 'tl_metamodel_filtersetting')
-            || ($event->getProperty() !== 'attr_id2')) {
+            || ($event->getProperty() !== 'attr_id2')
+            || ($event->getModel()->getProperty('type') !== 'range')) {
             return;
         }
 
@@ -147,7 +149,8 @@ class Subscriber extends BaseSubscriber
     public function encodeAttributeIdValue(EncodePropertyValueFromWidgetEvent $event)
     {
         if (($event->getEnvironment()->getDataDefinition()->getName() !== 'tl_metamodel_filtersetting')
-            || ($event->getProperty() !== 'attr_id2')) {
+            || ($event->getProperty() !== 'attr_id2')
+            || ($event->getModel()->getProperty('type') !== 'range')) {
             return;
         }
 
