@@ -344,12 +344,12 @@ abstract class AbstractRange extends Simple
         $filterTwo = $this->getMetaModel()->getEmptyFilter();
 
         $filterOne
-            ->addFilterRule(new LessThan($attribute, $this->formatValue($value[0]), (bool)$this->get('moreequal')))
-            ->addFilterRule(new GreaterThan($attribute2, $this->formatValue($value[0]), (bool)$this->get('lessequal')));
+            ->addFilterRule(new LessThan($attribute, $this->formatValue($value[0]), (bool) $this->get('moreequal')))
+            ->addFilterRule(new GreaterThan($attribute2, $this->formatValue($value[0]), (bool) $this->get('lessequal')));
 
         $filterTwo
-            ->addFilterRule(new LessThan($attribute, $this->formatValue($value[1]), (bool)$this->get('moreequal')))
-            ->addFilterRule(new GreaterThan($attribute2, $this->formatValue($value[1]), (bool)$this->get('lessequal')));
+            ->addFilterRule(new LessThan($attribute, $this->formatValue($value[1]), (bool) $this->get('moreequal')))
+            ->addFilterRule(new GreaterThan($attribute2, $this->formatValue($value[1]), (bool) $this->get('lessequal')));
 
         $upperMatches = $filterOne->getMatchingIds();
         $lowerMatches = $filterTwo->getMatchingIds();
