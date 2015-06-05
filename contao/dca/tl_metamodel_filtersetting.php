@@ -17,10 +17,46 @@
  * @filesource
  */
 
-$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['range extends default'] = array
-(
-    '+config' => array('attr_id', 'attr_id2', 'urlparam', 'label', 'template', 'moreequal', 'lessequal'),
-);
+// Range normal.
+$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['range extends _attribute_']['+config'][] =
+    'attr_id2';
+$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['range extends _attribute_']['+config'][]   =
+    'urlparam';
+$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['range extends _attribute_']['+fefilter'][] =
+    'label';
+$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['range extends _attribute_']['+fefilter'][] =
+    'template';
+$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['range extends _attribute_']['+fefilter'][] =
+    'moreequal';
+$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['range extends _attribute_']['+fefilter'][] =
+    'lessequal';
+$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['range extends _attribute_']['+fefilter'][] =
+    'fromfield';
+$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['range extends _attribute_']['+fefilter'][] =
+    'tofield';
+
+// From/To for date.
+$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['rangedate extends _attribute_']['+config'][] =
+    'attr_id2';
+$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['rangedate extends _attribute_']['+config'][]   =
+    'urlparam';
+$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['rangedate extends _attribute_']['+fefilter'][] =
+    'dateformat';
+$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['rangedate extends _attribute_']['+fefilter'][] =
+    'timetype';
+$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['rangedate extends _attribute_']['+fefilter'][] =
+    'label';
+$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['rangedate extends _attribute_']['+fefilter'][] =
+    'template';
+$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['rangedate extends _attribute_']['+fefilter'][] =
+    'moreequal';
+$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['rangedate extends _attribute_']['+fefilter'][] =
+    'lessequal';
+$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['rangedate extends _attribute_']['+fefilter'][] =
+    'fromfield';
+$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['rangedate extends _attribute_']['+fefilter'][] =
+    'tofield';
+
 
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['moreequal'] = array
 (
@@ -30,8 +66,8 @@ $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['moreequal'] = array
     'inputType'               => 'checkbox',
     'eval'                    => array
     (
-        'tl_class'            => 'w50',
-    ),
+        'tl_class'            => 'w50'
+    )
 );
 
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['lessequal'] = array
@@ -42,8 +78,8 @@ $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['lessequal'] = array
     'inputType'               => 'checkbox',
     'eval'                    => array
     (
-        'tl_class'            => 'w50',
-    ),
+        'tl_class'            => 'w50'
+    )
 );
 
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['fromfield'] = array
@@ -70,17 +106,73 @@ $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['tofield'] = array
     ),
 );
 
+$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['dateformat'] = array
+(
+    'label'                   => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['dateformat'],
+    'exclude'                 => true,
+    'inputType'               => 'text',
+    'eval'                    => array
+    (
+        'tl_class'            => 'w50'
+    )
+);
+
+$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['timetype'] = array
+(
+    'label'               => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['timetype'],
+    'exclude'             => true,
+    'inputType'           => 'select',
+    'reference'           => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['timetypeOptions'],
+    'options'             => array
+    (
+        'time',
+        'date',
+        'datim'
+    ),
+    'eval'                => array
+    (
+        'doNotSaveEmpty'  => true,
+        'tl_class'        => 'w50'
+    )
+);
+
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['attr_id2'] = array
 (
     'label'                   => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['attr_id2'],
+    'exclude'   => true,
+    'inputType' => 'select',
+    'eval'      => array
+    (
+        'doNotSaveEmpty'     => true,
+        'alwaysSave'         => true,
+        'submitOnChange'     => true,
+        'includeBlankOption' => true,
+        'mandatory'          => true,
+        'tl_class'           => 'w50',
+        'chosen'             => true
+    ),
+);
+
+$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['fromfield'] = array
+(
+    'label'                   => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['fromfield'],
     'exclude'                 => true,
-    'inputType'               => 'select',
+    'default'                 => true,
+    'inputType'               => 'checkbox',
     'eval'                    => array
     (
-        'doNotSaveEmpty'      => true,
-        'alwaysSave'          => true,
-        'submitOnChange'      => true,
-        'includeBlankOption'  => true,
-        'tl_class'            => 'w50',
-    ),
+        'tl_class'            => 'w50 clr'
+    )
+);
+
+$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['tofield'] = array
+(
+    'label'                   => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['tofield'],
+    'exclude'                 => true,
+    'default'                 => true,
+    'inputType'               => 'checkbox',
+    'eval'                    => array
+    (
+        'tl_class'            => 'w50'
+    )
 );
