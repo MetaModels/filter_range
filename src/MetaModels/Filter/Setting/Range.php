@@ -36,12 +36,4 @@ class Range extends AbstractRange
     {
         return $value;
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function buildRangeRule($firstAttribute, $secondAttribute)
-    {
-        return new Range($firstAttribute, $secondAttribute);
-    }
 }

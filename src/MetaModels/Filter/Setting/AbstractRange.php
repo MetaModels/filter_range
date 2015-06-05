@@ -46,17 +46,6 @@ abstract class AbstractRange extends Simple
     abstract protected function formatValue($value);
 
     /**
-     * Create the rule to perform from to filtering on.
-     *
-     * @param IAttribute $firstAttribute  The attribute to filter on.
-     *
-     * @param IAttribute $secondAttribute The attribute to filter on.
-     *
-     * @return FromTo
-     */
-    abstract protected function buildRangeRule($firstAttribute, $secondAttribute);
-
-    /**
      * {@inheritdoc}
      */
     public function getParameters()

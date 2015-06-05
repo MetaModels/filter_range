@@ -21,11 +21,6 @@
 namespace MetaModels\Filter\Setting;
 
 use MetaModels\Attribute\IAttribute;
-use MetaModels\Filter\IFilter;
-use MetaModels\Filter\Rules\Comparing\GreaterThan;
-use MetaModels\Filter\Rules\Comparing\LessThan;
-use MetaModels\Filter\Rules\StaticIdList;
-use MetaModels\FrontendIntegration\FrontendFilterOptions;
 
 /**
  * Filter "value in range of 2 fields" for FE-filtering, based on filters by the meta models team.
@@ -51,19 +46,5 @@ class RangeDate extends AbstractRange
 
         // Make a unix timestamp from the string.
         return $date->getTimestamp();
-    }
-
-    /**
-     * Create the rule to perform from to filtering on.
-     *
-     * @param IAttribute $firstAttribute  The attribute to filter on.
-     *
-     * @param IAttribute $secondAttribute The attribute to filter on.
-     *
-     * @return FromTo
-     */
-    protected function buildRangeRule($firstAttribute, $secondAttribute)
-    {
-        // TODO: Implement buildRangeRule() method.
     }
 }
