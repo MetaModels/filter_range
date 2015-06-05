@@ -366,16 +366,7 @@ abstract class AbstractRange extends Simple
         $lowerMatches = $filterTwo->getMatchingIds();
 
         $result = array_unique(array_merge($upperMatches, $lowerMatches));
-        echo "<pre>";
-        var_dump($value);
-        var_dump($result);
-        var_dump($upperMatches);
-        var_dump($lowerMatches);
-        var_dump('//---------------------------------');
-        echo "</pre>";
 
         $objFilter->addFilterRule(new StaticIdList($result));
-//        die();
-
     }
 }
