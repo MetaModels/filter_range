@@ -69,31 +69,28 @@ class Subscriber extends BaseSubscriber
     /**
      * Check if the contect of the event is a allowed one.
      *
-     * @param ContainerInterface $dataDefinition
+     * @param ContainerInterface $dataDefinition The data definition from the environment.
      *
-     * @param string             $propertyName
+     * @param string             $propertyName   The current property name.
      *
-     * @param ModelInterface     $model
+     * @param ModelInterface     $model          The current model.
      *
      * @return bool True => It is a allowed one | False => nope
      */
     protected function isAllowedContext($dataDefinition, $propertyName, $model)
     {
         // Check the name of the data def.
-        if($dataDefinition->getName() !== 'tl_metamodel_filtersetting')
-        {
+        if ($dataDefinition->getName() !== 'tl_metamodel_filtersetting') {
             return false;
         }
 
         // Check the name of the property.
-        if($propertyName !== 'attr_id2')
-        {
+        if ($propertyName !== 'attr_id2') {
             return false;
         }
 
         // Check the type.
-        if($model->getProperty('type') !== 'range' && $model->getProperty('type') !== 'rangedate')
-        {
+        if ($model->getProperty('type') !== 'range' && $model->getProperty('type') !== 'rangedate') {
             return false;
         }
 
