@@ -21,6 +21,7 @@ use ContaoCommunityAlliance\DcGeneral\Contao\View\Contao2BackendView\Event\Decod
 use ContaoCommunityAlliance\DcGeneral\Contao\View\Contao2BackendView\Event\EncodePropertyValueFromWidgetEvent;
 use ContaoCommunityAlliance\DcGeneral\Contao\View\Contao2BackendView\Event\GetPropertyOptionsEvent;
 use ContaoCommunityAlliance\DcGeneral\Data\ModelInterface;
+use ContaoCommunityAlliance\DcGeneral\DataDefinition\ContainerInterface;
 use MetaModels\DcGeneral\Events\BaseSubscriber;
 use MetaModels\IMetaModel;
 
@@ -66,6 +67,41 @@ class Subscriber extends BaseSubscriber
     }
 
     /**
+     * Check if the contect of the event is a allowed one.
+     *
+     * @param ContainerInterface $dataDefinition
+     *
+     * @param string             $propertyName
+     *
+     * @param ModelInterface     $model
+     *
+     * @return bool True => It is a allowed one | False => nope
+     */
+    protected function isAllowedContext($dataDefinition, $propertyName, $model)
+    {
+        // Check the name of the data def.
+        if($dataDefinition->getName() !== 'tl_metamodel_filtersetting')
+        {
+            return false;
+        }
+
+        // Check the name of the property.
+        if($propertyName !== 'attr_id2')
+        {
+            return false;
+        }
+
+        // Check the type.
+        if($model->getProperty('type') !== 'range' && $model->getProperty('type') !== 'rangedate')
+        {
+            return false;
+        }
+
+        // At the end, return true.
+        return true;
+    }
+
+    /**
      * Prepares a option list with alias => name connection for all attributes.
      *
      * This is used in the attr_id select box.
@@ -76,9 +112,13 @@ class Subscriber extends BaseSubscriber
      */
     public function getAttributeIdOptions(GetPropertyOptionsEvent $event)
     {
-        if (($event->getEnvironment()->getDataDefinition()->getName() !== 'tl_metamodel_filtersetting')
-            || ($event->getPropertyName() !== 'attr_id2')
-            || ($event->getModel()->getProperty('type') !== 'range')) {
+        $isAllowed = $this->isAllowedContext(
+            $event->getEnvironment()->getDataDefinition(),
+            $event->getPropertyName(),
+            $event->getModel()
+        );
+
+        if (!$isAllowed) {
             return;
         }
 
@@ -119,9 +159,13 @@ class Subscriber extends BaseSubscriber
      */
     public function decodeAttributeIdValue(DecodePropertyValueForWidgetEvent $event)
     {
-        if (($event->getEnvironment()->getDataDefinition()->getName() !== 'tl_metamodel_filtersetting')
-            || ($event->getProperty() !== 'attr_id2')
-            || ($event->getModel()->getProperty('type') !== 'range')) {
+        $isAllowed = $this->isAllowedContext(
+            $event->getEnvironment()->getDataDefinition(),
+            $event->getProperty(),
+            $event->getModel()
+        );
+
+        if (!$isAllowed) {
             return;
         }
 
@@ -148,9 +192,13 @@ class Subscriber extends BaseSubscriber
      */
     public function encodeAttributeIdValue(EncodePropertyValueFromWidgetEvent $event)
     {
-        if (($event->getEnvironment()->getDataDefinition()->getName() !== 'tl_metamodel_filtersetting')
-            || ($event->getProperty() !== 'attr_id2')
-            || ($event->getModel()->getProperty('type') !== 'range')) {
+        $isAllowed = $this->isAllowedContext(
+            $event->getEnvironment()->getDataDefinition(),
+            $event->getProperty(),
+            $event->getModel()
+        );
+
+        if (!$isAllowed) {
             return;
         }
 
