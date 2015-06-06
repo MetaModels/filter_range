@@ -15,8 +15,7 @@
  * @filesource
  */
 
-use MetaModels\DcGeneral\Events\Filter\Setting\Range\Subscriber as FilterSubscriber;
-use MetaModels\DcGeneral\Events\Table\FilterSetting\RangeSubscriber;
+use MetaModels\DcGeneral\Events\Filter\Setting\Range\Subscriber;
 use MetaModels\Events\MetaModelsBootEvent;
 use MetaModels\Filter\Setting\Events\CreateFilterSettingFactoryEvent;
 use MetaModels\Filter\Setting\RangeFilterSettingTypeFactory;
@@ -27,8 +26,7 @@ return array
 (
     MetaModelsEvents::SUBSYSTEM_BOOT_BACKEND => array(
         function (MetaModelsBootEvent $event) {
-            new FilterSubscriber($event->getServiceContainer());
-            new RangeSubscriber($event->getServiceContainer());
+            new Subscriber($event->getServiceContainer());
         }
     ),
     MetaModelsEvents::FILTER_SETTING_FACTORY_CREATE => array(
