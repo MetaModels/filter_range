@@ -11,6 +11,7 @@
  * @subpackage FilterRange
  * @author     Christian Schiffler <c.schiffler@cyberspectrum.de>
  * @author     Stefan Heimes <stefan_heimes@hotmail.com>
+ * @author     David Molineus <david.molineus@netzmacht.de>
  * @copyright  The MetaModels team.
  * @license    LGPL.
  * @filesource
@@ -208,7 +209,7 @@ class Subscriber extends BaseSubscriber
             return;
         }
 
-        $value = str_replace($metaModel->getTableName() . '_', '', $value);
+        $value = substr($value, strlen($metaModel->getTableName() . '_'));
 
         $attribute = $metaModel->getAttribute($value);
 
