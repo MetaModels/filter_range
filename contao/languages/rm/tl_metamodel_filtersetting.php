@@ -8,18 +8,22 @@
  *
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  *
- * last-updated: 2013-05-13T22:14:21+02:00
+ * last-updated: 2015-07-11T07:34:49+02:00
  */
 
+$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['attr_id2']['0']            = 'Segund attribut';
+$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['attr_id2']['1']            = 'Il segund attribut che vegn definì da questa configuraziun.';
+$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['fromfield']['0']           = 'Champ per la valur 1';
+$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['fromfield']['1']           = 'Mussar in champ en il front-end per la valur 1.';
+$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['lessequal']['0']           = 'Includer la valur 2';
+$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['lessequal']['1']           = 'Standard: betg includer.';
+$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['moreequal']['0']           = 'Includer la valur 1';
+$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['moreequal']['1']           = 'Standard: betg includer.';
+$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['timetype']['0']            = 'Schema';
+$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['timetype']['1']            = 'Qua pos ti tscherner il schema giavischà.';
+$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['timetypeOptions']['date']  = 'Data';
+$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['timetypeOptions']['datim'] = 'Data e temp';
+$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['tofield']['0']             = 'Champ per la valur 2';
+$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['tofield']['1']             = 'Mussar in champ en il front-end per la valur 2.';
+$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['typenames']['range']       = 'Valur entaifer 2 champs';
 
-$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['attr_id2']['0']      = 'Segund attribut';
-$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['attr_id2']['1']      = 'Il segund attribut che vegn definì da questa configuraziun.';
-$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['fromfield']['0']     = 'Champ per la valur 1';
-$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['fromfield']['1']     = 'Mussar in champ en il front-end per la valur 1.';
-$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['lessequal']['0']     = 'Includer la valur 2';
-$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['lessequal']['1']     = 'Standard: betg includer.';
-$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['moreequal']['0']     = 'Includer la valur 1';
-$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['moreequal']['1']     = 'Standard: betg includer.';
-$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['tofield']['0']       = 'Champ per la valur 2';
-$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['tofield']['1']       = 'Mussar in champ en il front-end per la valur 2.';
-$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['typenames']['range'] = 'Valur entaifer 2 champs';
