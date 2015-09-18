@@ -8,7 +8,7 @@
  *
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  *
- * last-updated: 2015-07-11T07:34:49+02:00
+ * last-updated: 2015-07-11T08:02:28+02:00
  */
 
 $GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['attr_id2']['0']            = 'Zweites Attribut';
@@ -23,7 +23,9 @@ $GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['timetype']['0']            = 
 $GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['timetype']['1']            = 'Hier können die das gewünschte Schema auswählen.';
 $GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['timetypeOptions']['date']  = 'Datum';
 $GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['timetypeOptions']['datim'] = 'Datum und Uhrzeit';
+$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['timetypeOptions']['time']  = 'Zeit';
 $GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['tofield']['0']             = 'Feld für Wert 2';
 $GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['tofield']['1']             = 'Zeige Frontend-Feld für Wert 2.';
 $GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['typenames']['range']       = '2 Felder mit Werten';
+$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['typenames']['rangedate']   = 'Wert mit zwei Feldern für das Datum.';
 
