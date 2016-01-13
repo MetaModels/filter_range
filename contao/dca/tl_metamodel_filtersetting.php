@@ -6,20 +6,19 @@
  * The Front-End modules allow you to build powerful listing and filtering of the
  * data in each collection.
  *
- * PHP version 5
  * @package    MetaModels
  * @subpackage FilterRange
  * @author     Christian Schiffler <c.schiffler@cyberspectrum.de>
  * @author     Stefan Heimes <stefan_heimes@hotmail.com>
  * @author     Andreas Isaak <info@andreas-isaak.de>
  * @author     Christian de la Haye <service@delahaye.de>
- * @copyright  The MetaModels team.
- * @license    LGPL.
+ * @copyright  2015 The MetaModels team.
+ * @license    https://github.com/MetaModels/filter_range/blob/master/LICENSE LGPL-3.0
  * @filesource
  */
 
 // Range normal.
-$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['range extends _attribute_']['+config'][] =
+$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['range extends _attribute_']['+config'][]   =
     'attr_id2';
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['range extends _attribute_']['+config'][]   =
     'urlparam';
@@ -37,7 +36,7 @@ $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['range extends 
     'tofield';
 
 // From/To for date.
-$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['rangedate extends _attribute_']['+config'][] =
+$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['rangedate extends _attribute_']['+config'][]   =
     'attr_id2';
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['rangedate extends _attribute_']['+config'][]   =
     'urlparam';
