@@ -8,6 +8,7 @@
  *
  * @package    MetaModels
  * @subpackage FilterRange
+ * @author     Christian Schiffler <c.schiffler@cyberspectrum.de>
  * @author     Stefan Heimes <stefan_heimes@hotmail.com>
  * @copyright  2015 The MetaModels team.
  * @license    https://github.com/MetaModels/filter_range/blob/master/LICENSE LGPL-3.0
