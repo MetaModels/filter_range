@@ -9,11 +9,11 @@
 		 processIsolation="false"
 		 stopOnFailure="false"
 		 syntaxCheck="false"
-		 bootstrap="tests/bootstrap.php"
+		 bootstrap="vendor/autoload.php"
 		>
 	<testsuites>
 		<testsuite name="MetaModels filter range tests">
-			<directory>./tests/MetaModels/</directory>
+			<directory>./tests/</directory>
 		</testsuite>
 	</testsuites>
 
@@ -25,7 +25,7 @@
 
 	<filter>
 		<whitelist>
-			<directory>./src/MetaModels/</directory>
+			<directory>./src/</directory>
 		</whitelist>
 	</filter>
 </phpunit>
