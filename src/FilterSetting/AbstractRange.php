@@ -53,7 +53,7 @@ abstract class AbstractRange extends Simple
      */
     public function getParameters()
     {
-        return ($strParamName = $this->getParamName()) ? array($strParamName) : array();
+        return ($strParamName = $this->getParamName()) ? [$strParamName] : [];
     }
 
     /**
@@ -62,16 +62,16 @@ abstract class AbstractRange extends Simple
     public function getParameterFilterNames()
     {
         if ($this->get('label')) {
-            return array($this->getParamName() => $this->get('label'));
+            return [$this->getParamName() => $this->get('label')];
         }
 
-        return array(
+        return [
             $this->getParamName() => sprintf(
                 '%s / %s',
                 $this->getMetaModel()->getAttributeById($this->get('attr_id'))->getName(),
                 $this->getMetaModel()->getAttributeById($this->get('attr_id2'))->getName()
             )
-        );
+        ];
     }
 
     /**
@@ -85,7 +85,7 @@ abstract class AbstractRange extends Simple
     {
         $parameterName = $this->getParamName();
         if (isset($filterUrl[$parameterName]) && !empty($filterUrl[$parameterName])) {
-            if (is_array($filterUrl[$parameterName])) {
+            if (\is_array($filterUrl[$parameterName])) {
                 return array_values(array_filter($filterUrl[$parameterName]));
             }
 
@@ -105,7 +105,7 @@ abstract class AbstractRange extends Simple
         $objMetaModel  = $this->getMetaModel();
         $objAttribute  = $objMetaModel->getAttributeById($this->get('attr_id'));
         $objAttribute2 = $objMetaModel->getAttributeById($this->get('attr_id2'));
-        $arrResult     = array();
+        $arrResult     = [];
 
         if ($objAttribute) {
             $arrResult[] = $objAttribute->getColName();
@@ -161,17 +161,20 @@ abstract class AbstractRange extends Simple
      */
     protected function prepareWidgetLabel($objAttribute)
     {
-        $arrLabel = array(
-            ($this->get('label') ? $this->get('label') : $objAttribute->getName()),
+        $arrLabel = [
+            $this->get('label') ?: $objAttribute->getName(),
             'GET: ' . $this->getParamName()
-        );
+        ];
 
-        if ($this->get('fromfield') && $this->get('tofield')) {
-            $arrLabel[0] .= ' ' . $GLOBALS['TL_LANG']['metamodels_frontendfilter']['fromto'];
-        } elseif ($this->get('fromfield') && !$this->get('tofield')) {
-            $arrLabel[0] .= ' ' . $GLOBALS['TL_LANG']['metamodels_frontendfilter']['from'];
+        $fromToField = $this->get('fromfield');
+        $toField     = $this->get('tofield');
+
+        if ($fromToField && $toField) {
+            $arrLabel[0] .= ' '.$GLOBALS['TL_LANG']['metamodels_frontendfilter']['fromto'];
+        } elseif ($fromToField && !$toField) {
+            $arrLabel[0] .= ' '.$GLOBALS['TL_LANG']['metamodels_frontendfilter']['from'];
         } else {
-            $arrLabel[0] .= ' ' . $GLOBALS['TL_LANG']['metamodels_frontendfilter']['to'];
+            $arrLabel[0] .= ' '.$GLOBALS['TL_LANG']['metamodels_frontendfilter']['to'];
         }
 
         return $arrLabel;
@@ -198,7 +201,7 @@ abstract class AbstractRange extends Simple
             $mixOption = strip_tags($mixOption);
             $mixOption = trim($mixOption);
 
-            if ($mixOption === '' || $mixOption === null) {
+            if ('' === $mixOption || null === $mixOption) {
                 unset($arrOptions[$mixKeyOption]);
             }
         }
@@ -223,7 +226,7 @@ abstract class AbstractRange extends Simple
         // If we have a value, we have to explode it by double underscore to have a valid value which the active checks
         // may cope with.
         if (array_key_exists($parameterName, $arrFilterUrl) && !empty($arrFilterUrl[$parameterName])) {
-            if (is_array($arrFilterUrl[$parameterName])) {
+            if (\is_array($arrFilterUrl[$parameterName])) {
                 $parameterValue = $arrFilterUrl[$parameterName];
             } else {
                 $parameterValue = explode('__', $arrFilterUrl[$parameterName], 2);
@@ -232,16 +235,16 @@ abstract class AbstractRange extends Simple
             if ($parameterValue && ($parameterValue[0] || $parameterValue[1])) {
                 $privateFilterUrl[$parameterName] = $parameterValue;
 
-                return array($privateFilterUrl, $parameterValue);
-            } else {
-                // No values given, clear the array.
-                $parameterValue = null;
-
-                return array($privateFilterUrl, $parameterValue);
+                return [$privateFilterUrl, $parameterValue];
             }
+
+            // No values given, clear the array.
+            $parameterValue = null;
+
+            return [$privateFilterUrl, $parameterValue];
         }
 
-        return array($privateFilterUrl, $parameterValue);
+        return [$privateFilterUrl, $parameterValue];
     }
 
     /**
@@ -257,22 +260,22 @@ abstract class AbstractRange extends Simple
      */
     protected function getFilterWidgetParameters(IAttribute $attribute, $currentValue, $ids)
     {
-        return array(
+        return [
             'label'         => $this->prepareWidgetLabel($attribute),
             'inputType'     => 'multitext',
             'options'       => $this->prepareWidgetOptions($ids, $attribute),
             'timetype'      => $this->get('timetype'),
             'dateformat'    => $this->get('dateformat'),
-            'eval'          => array(
+            'eval'          => [
                 'multiple'  => true,
-                'size'      => ($this->get('fromfield') && $this->get('tofield') ? 2 : 1),
+                'size'      => $this->get('fromfield') && $this->get('tofield') ? 2 : 1,
                 'urlparam'  => $this->getParamName(),
                 'template'  => $this->get('template'),
-                'colname'   => $attribute->getColname(),
-            ),
+                'colname'   => $attribute->getColName(),
+            ],
             // We need to implode to have it transported correctly in the frontend filter.
             'urlvalue'      => !empty($currentValue) ? implode('__', $currentValue) : ''
-        );
+        ];
     }
 
     /**
@@ -289,21 +292,21 @@ abstract class AbstractRange extends Simple
     ) {
         $objAttribute = $this->getMetaModel()->getAttributeById($this->get('attr_id'));
         if (!$objAttribute) {
-            return array();
+            return [];
         }
 
         list($privateFilterUrl, $currentValue) = $this->prepareWidgetParamAndFilterUrl($arrFilterUrl);
 
         $this->registerFilterParameter();
 
-        return array(
+        return [
             $this->getParamName() => $this->prepareFrontendFilterWidget(
                 $this->getFilterWidgetParameters($objAttribute, $currentValue, $arrIds),
                 $privateFilterUrl,
                 $arrJumpTo,
                 $objFrontendFilterOptions
             )
-        );
+        ];
     }
 
     /**
@@ -323,7 +326,7 @@ abstract class AbstractRange extends Simple
         $attribute2 = $this->getMetaModel()->getAttributeById($this->get('attr_id2'));
 
         // Check if we have a valid value.
-        if (!($attribute)) {
+        if (!$attribute) {
             $objFilter->addFilterRule(new StaticIdList(null));
 
             return;
