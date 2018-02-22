@@ -55,6 +55,7 @@
     }
   },
   "extra": {
+    "contao-manager-plugin": "MetaModels\\FilterRangeBundle\\ContaoManager\\Plugin",
     "contao": {
       "transifex": {
         "project": "metamodels",
