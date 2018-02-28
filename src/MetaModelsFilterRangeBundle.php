@@ -18,7 +18,7 @@
  * @filesource
  */
 
-namespace MetaModels\FilterFromToBundle;
+namespace MetaModels\FilterRangeBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

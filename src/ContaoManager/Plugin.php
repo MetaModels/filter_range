@@ -25,7 +25,7 @@ use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
 use Contao\ManagerPlugin\Bundle\Config\ConfigInterface;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
 use MetaModels\CoreBundle\MetaModelsCoreBundle;
-use MetaModels\FilterFromToBundle\MetaModelsFilterRangeBundle;
+use MetaModels\FilterRangeBundle\MetaModelsFilterRangeBundle;
 
 
 /**

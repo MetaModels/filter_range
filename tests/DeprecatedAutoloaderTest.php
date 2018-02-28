@@ -20,13 +20,6 @@
 
 namespace MetaModels\FilterRangeBundle\Test;
 
-use MetaModels\FilterFromToBundle\FilterRule\FromTo as FromToRule;
-use MetaModels\FilterFromToBundle\FilterRule\FromToDate as FromToDateRule;
-use MetaModels\FilterFromToBundle\FilterSetting\AbstractFromTo;
-use MetaModels\FilterFromToBundle\FilterSetting\FromTo as FromToSetting;
-use MetaModels\FilterFromToBundle\FilterSetting\FromToDate as FromToDateSetting;
-use MetaModels\FilterFromToBundle\FilterSetting\FromToDateFilterSettingTypeFactory;
-use MetaModels\FilterFromToBundle\FilterSetting\FromToFilterSettingTypeFactory;
 use MetaModels\FilterRangeBundle\FilterSetting\AbstractRange;
 use MetaModels\FilterRangeBundle\FilterSetting\Range;
 use MetaModels\FilterRangeBundle\FilterSetting\RangeDate;

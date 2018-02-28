@@ -18,7 +18,7 @@
  * @filesource
  */
 
-namespace MetaModels\FilterFromToBundle\Test\DependencyInjection;
+namespace MetaModels\FilterRangeBundle\Test\DependencyInjection;
 
 use MetaModels\FilterRangeBundle\DependencyInjection\MetaModelsFilterRangeExtension;
 use MetaModels\FilterRangeBundle\FilterSetting\RangeFilterSettingTypeFactory;
