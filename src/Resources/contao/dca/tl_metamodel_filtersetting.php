@@ -153,6 +153,7 @@ $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['fromfield'] = [
     'eval'      => [
         'tl_class' => 'w50 clr',
     ],
+    'sql'       => 'char(1) NOT NULL default \'1\''
 ];
 
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['tofield'] = [
@@ -163,4 +164,5 @@ $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['tofield'] = [
     'eval'      => [
         'tl_class' => 'w50',
     ],
+    'sql'      => 'char(1) NOT NULL default \'1\''
 ];
