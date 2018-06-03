@@ -164,27 +164,3 @@ $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['attr_id2'] = array
         'chosen'             => true
     ),
 );
-
-$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['fromfield'] = array
-(
-    'label'     => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['fromfield'],
-    'exclude'   => true,
-    'default'   => true,
-    'inputType' => 'checkbox',
-    'eval'      => array
-    (
-        'tl_class' => 'w50 clr'
-    )
-);
-
-$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['tofield'] = array
-(
-    'label'     => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['tofield'],
-    'exclude'   => true,
-    'default'   => true,
-    'inputType' => 'checkbox',
-    'eval'      => array
-    (
-        'tl_class' => 'w50'
-    )
-);
