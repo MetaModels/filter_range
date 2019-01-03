@@ -24,10 +24,6 @@ namespace MetaModels\Filter\Setting;
 
 /**
  * Filter "value in range of 2 fields" for FE-filtering, based on filters by the meta models team.
- *
- * @package    MetaModels
- * @subpackage FilterRange
- * @author     Christian de la Haye <service@delahaye.de>
  */
 class Range extends AbstractRange
 {

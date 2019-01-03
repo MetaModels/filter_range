@@ -30,8 +30,6 @@ use MetaModels\IMetaModel;
 
 /**
  * Central event subscriber implementation.
- *
- * @package MetaModels\DcGeneral\Events\Filter\Setting\Range
  */
 class Subscriber extends BaseSubscriber
 {
