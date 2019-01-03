@@ -49,12 +49,6 @@
     "contao": {
       "symlinks": {
         "contao": "system/modules/metamodelsfilter_range"
-      },
-      "transifex": {
-        "project": "metamodels",
-        "prefix": "filter_range-",
-        "languages_cto": "contao/languages",
-        "languages_tx": ".tx"
       }
     },
     "branch-alias": {
