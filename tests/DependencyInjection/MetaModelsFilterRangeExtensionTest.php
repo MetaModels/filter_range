@@ -1,26 +1,27 @@
 <?php
 
 /**
- * * This file is part of MetaModels/filter_range.
+ * This file is part of MetaModels/filter_range.
  *
- * (c) 2015-2018 The MetaModels team.
+ * (c) 2012-2019 The MetaModels team.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
  * This project is provided in good faith and hope to be usable by anyone.
  *
- * @package    MetaModels
- * @subpackage FilterRangeBundle
+ * @package    MetaModels/filter_range
  * @author     Richard Henkenjohann <richardhenkenjohann@googlemail.com>
- * @copyright  2015-2018 The MetaModels team.
- * @license    https://github.com/MetaModels/filter_range/blob/master/LICENSE LGPL-3.0
+ * @author     Christian Schiffler <c.schiffler@cyberspectrum.de>
+ * @copyright  2012-2019 The MetaModels team.
+ * @license    https://github.com/MetaModels/filter_range/blob/master/LICENSE LGPL-3.0-or-later
  * @filesource
  */
 
 namespace MetaModels\FilterRangeBundle\Test\DependencyInjection;
 
 use MetaModels\FilterRangeBundle\DependencyInjection\MetaModelsFilterRangeExtension;
+use MetaModels\FilterRangeBundle\FilterSetting\RangeDateFilterSettingTypeFactory;
 use MetaModels\FilterRangeBundle\FilterSetting\RangeFilterSettingTypeFactory;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -49,7 +50,6 @@ class MetaModelsFilterRangeExtensionTest extends TestCase
      * Test that the services are loaded.
      *
      * @return void
-     * @throws \Exception
      */
     public function testFactoryIsRegistered()
     {
@@ -60,12 +60,25 @@ class MetaModelsFilterRangeExtensionTest extends TestCase
             ->method('setDefinition')
             ->withConsecutive(
                 [
-                    'metamodels.filter_fromto.factory',
+                    'metamodels.filter_range.factory',
                     $this->callback(
                         function ($value) {
                             /** @var Definition $value */
                             $this->assertInstanceOf(Definition::class, $value);
                             $this->assertEquals(RangeFilterSettingTypeFactory::class, $value->getClass());
+                            $this->assertCount(1, $value->getTag('metamodels.filter_factory'));
+
+                            return true;
+                        }
+                    )
+                ],
+                [
+                    'metamodels.filter_range.date_factory',
+                    $this->callback(
+                        function ($value) {
+                            /** @var Definition $value */
+                            $this->assertInstanceOf(Definition::class, $value);
+                            $this->assertEquals(RangeDateFilterSettingTypeFactory::class, $value->getClass());
                             $this->assertCount(1, $value->getTag('metamodels.filter_factory'));
 
                             return true;
