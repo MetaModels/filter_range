@@ -163,13 +163,18 @@ abstract class AbstractRange extends Simple
             'GET: ' . $this->getParamName()
         );
 
-        if ($this->get('fromfield') && $this->get('tofield')) {
+        $fromField = $this->get('fromfield');
+        $toField   = $this->get('tofield');
+        if ($fromField && $toField) {
             $arrLabel[0] .= ' ' . $GLOBALS['TL_LANG']['metamodels_frontendfilter']['fromto'];
-        } elseif ($this->get('fromfield') && !$this->get('tofield')) {
-            $arrLabel[0] .= ' ' . $GLOBALS['TL_LANG']['metamodels_frontendfilter']['from'];
-        } else {
-            $arrLabel[0] .= ' ' . $GLOBALS['TL_LANG']['metamodels_frontendfilter']['to'];
+            return $arrLabel;
         }
+        if ($fromField && !$toField) {
+            $arrLabel[0] .= ' ' . $GLOBALS['TL_LANG']['metamodels_frontendfilter']['from'];
+            return $arrLabel;
+        }
+
+        $arrLabel[0] .= ' ' . $GLOBALS['TL_LANG']['metamodels_frontendfilter']['to'];
 
         return $arrLabel;
     }
@@ -195,7 +200,7 @@ abstract class AbstractRange extends Simple
             $mixOption = strip_tags($mixOption);
             $mixOption = trim($mixOption);
 
-            if ($mixOption === '' || $mixOption === null) {
+            if ('' === $mixOption || null === $mixOption) {
                 unset($arrOptions[$mixKeyOption]);
             }
         }
@@ -230,12 +235,12 @@ abstract class AbstractRange extends Simple
                 $privateFilterUrl[$parameterName] = $parameterValue;
 
                 return array($privateFilterUrl, $parameterValue);
-            } else {
-                // No values given, clear the array.
-                $parameterValue = null;
-
-                return array($privateFilterUrl, $parameterValue);
             }
+
+            // No values given, clear the array.
+            $parameterValue = null;
+
+            return array($privateFilterUrl, $parameterValue);
         }
 
         return array($privateFilterUrl, $parameterValue);
@@ -265,7 +270,7 @@ abstract class AbstractRange extends Simple
                 'size'      => ($this->get('fromfield') && $this->get('tofield') ? 2 : 1),
                 'urlparam'  => $this->getParamName(),
                 'template'  => $this->get('template'),
-                'colname'   => $attribute->getColname(),
+                'colname'   => $attribute->getColName(),
             ),
             // We need to implode to have it transported correctly in the frontend filter.
             'urlvalue'      => !empty($currentValue) ? implode('__', $currentValue) : ''
@@ -274,9 +279,6 @@ abstract class AbstractRange extends Simple
 
     /**
      * {@inheritdoc}
-     *
-     * @SuppressWarnings(PHPMD.Superglobals)
-     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
      */
     public function getParameterFilterWidgets(
         $arrIds,

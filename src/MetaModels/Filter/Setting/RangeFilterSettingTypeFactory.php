@@ -34,7 +34,7 @@ class RangeFilterSettingTypeFactory extends AbstractFilterSettingTypeFactory
         $this
             ->setTypeName('range')
             ->setTypeIcon('system/modules/metamodelsfilter_range/html/filter_range.png')
-            ->setTypeClass('MetaModels\Filter\Setting\Range')
+            ->setTypeClass(Range::class)
             ->allowAttributeTypes('numeric', 'decimal');
     }
 }

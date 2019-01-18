@@ -34,7 +34,7 @@ class RangeDate extends AbstractRange
         $date = \DateTime::createFromFormat($this->get('dateformat'), $value);
 
         // Check if we have a date, if not return a empty string.
-        if ($date === false) {
+        if (false === $date) {
             return '';
         }
 
