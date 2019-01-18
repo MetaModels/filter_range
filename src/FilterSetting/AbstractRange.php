@@ -1,22 +1,21 @@
 <?php
 
 /**
- * * This file is part of MetaModels/filter_range.
+ * This file is part of MetaModels/filter_range.
  *
- * (c) 2015-2018 The MetaModels team.
+ * (c) 2012-2019 The MetaModels team.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
  * This project is provided in good faith and hope to be usable by anyone.
  *
- * @package    MetaModels
- * @subpackage FilterRangeBundle
+ * @package    MetaModels/filter_range
  * @author     Christian Schiffler <c.schiffler@cyberspectrum.de>
  * @author     Stefan Heimes <stefan_heimes@hotmail.com>
  * @author     Richard Henkenjohann <richardhenkenjohann@googlemail.com>
- * @copyright  2015-2018 The MetaModels team.
- * @license    https://github.com/MetaModels/filter_range/blob/master/LICENSE LGPL-3.0
+ * @copyright  2012-2019 The MetaModels team.
+ * @license    https://github.com/MetaModels/filter_range/blob/master/LICENSE LGPL-3.0-or-later
  * @filesource
  */
 
@@ -166,16 +165,19 @@ abstract class AbstractRange extends Simple
             'GET: ' . $this->getParamName()
         ];
 
-        $fromToField = $this->get('fromfield');
-        $toField     = $this->get('tofield');
+        $fromField = $this->get('fromfield');
+        $toField   = $this->get('tofield');
 
-        if ($fromToField && $toField) {
-            $arrLabel[0] .= ' '.$GLOBALS['TL_LANG']['metamodels_frontendfilter']['fromto'];
-        } elseif ($fromToField && !$toField) {
-            $arrLabel[0] .= ' '.$GLOBALS['TL_LANG']['metamodels_frontendfilter']['from'];
-        } else {
-            $arrLabel[0] .= ' '.$GLOBALS['TL_LANG']['metamodels_frontendfilter']['to'];
+        if ($fromField && $toField) {
+            $arrLabel[0] .= ' ' . $GLOBALS['TL_LANG']['metamodels_frontendfilter']['fromto'];
+            return $arrLabel;
         }
+        if ($fromField && !$toField) {
+            $arrLabel[0] .= ' ' . $GLOBALS['TL_LANG']['metamodels_frontendfilter']['from'];
+            return $arrLabel;
+        }
+
+        $arrLabel[0] .= ' ' . $GLOBALS['TL_LANG']['metamodels_frontendfilter']['to'];
 
         return $arrLabel;
     }
@@ -280,9 +282,6 @@ abstract class AbstractRange extends Simple
 
     /**
      * {@inheritdoc}
-     *
-     * @SuppressWarnings(PHPMD.Superglobals)
-     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
      */
     public function getParameterFilterWidgets(
         $arrIds,
