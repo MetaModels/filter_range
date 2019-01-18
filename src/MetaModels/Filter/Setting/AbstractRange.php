@@ -1,17 +1,20 @@
 <?php
 
 /**
- * The MetaModels extension allows the creation of multiple collections of custom items,
- * each with its own unique set of selectable attributes, with attribute extendability.
- * The Front-End modules allow you to build powerful listing and filtering of the
- * data in each collection.
+ * This file is part of MetaModels/filter_range.
  *
- * @package    MetaModels
- * @subpackage FilterRange
+ * (c) 2012-2019 The MetaModels team.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * This project is provided in good faith and hope to be usable by anyone.
+ *
+ * @package    MetaModels/filter_range
  * @author     Christian Schiffler <c.schiffler@cyberspectrum.de>
  * @author     Stefan Heimes <stefan_heimes@hotmail.com>
- * @copyright  2015 The MetaModels team.
- * @license    https://github.com/MetaModels/filter_range/blob/master/LICENSE LGPL-3.0
+ * @copyright  2012-2019 The MetaModels team.
+ * @license    https://github.com/MetaModels/filter_range/blob/master/LICENSE LGPL-3.0-or-later
  * @filesource
  */
 
@@ -160,13 +163,18 @@ abstract class AbstractRange extends Simple
             'GET: ' . $this->getParamName()
         );
 
-        if ($this->get('fromfield') && $this->get('tofield')) {
+        $fromField = $this->get('fromfield');
+        $toField   = $this->get('tofield');
+        if ($fromField && $toField) {
             $arrLabel[0] .= ' ' . $GLOBALS['TL_LANG']['metamodels_frontendfilter']['fromto'];
-        } elseif ($this->get('fromfield') && !$this->get('tofield')) {
-            $arrLabel[0] .= ' ' . $GLOBALS['TL_LANG']['metamodels_frontendfilter']['from'];
-        } else {
-            $arrLabel[0] .= ' ' . $GLOBALS['TL_LANG']['metamodels_frontendfilter']['to'];
+            return $arrLabel;
         }
+        if ($fromField && !$toField) {
+            $arrLabel[0] .= ' ' . $GLOBALS['TL_LANG']['metamodels_frontendfilter']['from'];
+            return $arrLabel;
+        }
+
+        $arrLabel[0] .= ' ' . $GLOBALS['TL_LANG']['metamodels_frontendfilter']['to'];
 
         return $arrLabel;
     }
@@ -192,7 +200,7 @@ abstract class AbstractRange extends Simple
             $mixOption = strip_tags($mixOption);
             $mixOption = trim($mixOption);
 
-            if ($mixOption === '' || $mixOption === null) {
+            if ('' === $mixOption || null === $mixOption) {
                 unset($arrOptions[$mixKeyOption]);
             }
         }
@@ -227,12 +235,12 @@ abstract class AbstractRange extends Simple
                 $privateFilterUrl[$parameterName] = $parameterValue;
 
                 return array($privateFilterUrl, $parameterValue);
-            } else {
-                // No values given, clear the array.
-                $parameterValue = null;
-
-                return array($privateFilterUrl, $parameterValue);
             }
+
+            // No values given, clear the array.
+            $parameterValue = null;
+
+            return array($privateFilterUrl, $parameterValue);
         }
 
         return array($privateFilterUrl, $parameterValue);
@@ -262,7 +270,7 @@ abstract class AbstractRange extends Simple
                 'size'      => ($this->get('fromfield') && $this->get('tofield') ? 2 : 1),
                 'urlparam'  => $this->getParamName(),
                 'template'  => $this->get('template'),
-                'colname'   => $attribute->getColname(),
+                'colname'   => $attribute->getColName(),
             ),
             // We need to implode to have it transported correctly in the frontend filter.
             'urlvalue'      => !empty($currentValue) ? implode('__', $currentValue) : ''
@@ -271,9 +279,6 @@ abstract class AbstractRange extends Simple
 
     /**
      * {@inheritdoc}
-     *
-     * @SuppressWarnings(PHPMD.Superglobals)
-     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
      */
     public function getParameterFilterWidgets(
         $arrIds,
