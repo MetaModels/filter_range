@@ -16,6 +16,8 @@
  * @author     Andreas Isaak <info@andreas-isaak.de>
  * @author     Christian de la Haye <service@delahaye.de>
  * @author     Ingolf Steinhardt <info@e-spin.de>
+ * @author     Richard Henkenjohann <richardhenkenjohann@googlemail.com>
+ * @author     Sven Baumann <baumann.sv@gmail.com>
  * @copyright  2012-2019 The MetaModels team.
  * @license    https://github.com/MetaModels/filter_range/blob/master/LICENSE LGPL-3.0-or-later
  * @filesource
