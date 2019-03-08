@@ -21,7 +21,9 @@
 
 namespace MetaModels\FilterRangeBundle\FilterSetting;
 
+use MetaModels\Filter\FilterUrlBuilder;
 use MetaModels\Filter\Setting\AbstractFilterSettingTypeFactory;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Attribute type factory for from-to filter settings.
@@ -29,9 +31,26 @@ use MetaModels\Filter\Setting\AbstractFilterSettingTypeFactory;
 class RangeDateFilterSettingTypeFactory extends AbstractFilterSettingTypeFactory
 {
     /**
-     * {@inheritDoc}
+     * The event dispatcher.
+     *
+     * @var EventDispatcherInterface
      */
-    public function __construct()
+    private $dispatcher;
+
+    /**
+     * The filter URL builder.
+     *
+     * @var FilterUrlBuilder
+     */
+    private $filterUrlBuilder;
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param EventDispatcherInterface $dispatcher       The event dispatcher.
+     * @param FilterUrlBuilder         $filterUrlBuilder The filter URL builder.
+     */
+    public function __construct(EventDispatcherInterface $dispatcher, FilterUrlBuilder $filterUrlBuilder)
     {
         parent::__construct();
 
@@ -40,5 +59,21 @@ class RangeDateFilterSettingTypeFactory extends AbstractFilterSettingTypeFactory
             ->setTypeIcon('bundles/metamodelsfilterrange/filter_range.png')
             ->setTypeClass(RangeDate::class)
             ->allowAttributeTypes('numeric', 'decimal', 'timestamp');
+
+        $this->dispatcher       = $dispatcher;
+        $this->filterUrlBuilder = $filterUrlBuilder;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function createInstance($information, $filterSettings)
+    {
+        return new RangeDate(
+            $filterSettings,
+            $information,
+            $this->dispatcher,
+            $this->filterUrlBuilder
+        );
     }
 }

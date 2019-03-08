@@ -1,11 +1,17 @@
 services:
     metamodels.filter_range.factory:
         class: MetaModels\FilterRangeBundle\FilterSetting\RangeFilterSettingTypeFactory
+        arguments:
+          - '@event_dispatcher'
+          - '@MetaModels\Filter\FilterUrlBuilder'
         tags:
           - { name: metamodels.filter_factory }
 
     metamodels.filter_range.date_factory:
         class: MetaModels\FilterRangeBundle\FilterSetting\RangeDateFilterSettingTypeFactory
+        arguments:
+          - '@event_dispatcher'
+          - '@MetaModels\Filter\FilterUrlBuilder'
         tags:
           - { name: metamodels.filter_factory }
 
