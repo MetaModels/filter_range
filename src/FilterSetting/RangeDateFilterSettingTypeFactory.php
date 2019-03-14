@@ -58,7 +58,7 @@ class RangeDateFilterSettingTypeFactory extends AbstractFilterSettingTypeFactory
             ->setTypeName('rangedate')
             ->setTypeIcon('bundles/metamodelsfilterrange/filter_range.png')
             ->setTypeClass(RangeDate::class)
-            ->allowAttributeTypes('numeric', 'decimal', 'timestamp');
+            ->allowAttributeTypes('timestamp');
 
         $this->dispatcher       = $dispatcher;
         $this->filterUrlBuilder = $filterUrlBuilder;
