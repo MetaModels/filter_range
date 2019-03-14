@@ -88,7 +88,7 @@ abstract class AbstractRange extends Simple
                 return array_values(array_filter($filterUrl[$parameterName]));
             }
 
-            return array_values(array_filter(explode('__', $filterUrl[$parameterName])));
+            return array_values(array_filter(explode(',', $filterUrl[$parameterName])));
         }
 
         return null;
@@ -231,7 +231,7 @@ abstract class AbstractRange extends Simple
             if (\is_array($arrFilterUrl[$parameterName])) {
                 $parameterValue = $arrFilterUrl[$parameterName];
             } else {
-                $parameterValue = explode('__', $arrFilterUrl[$parameterName], 2);
+                $parameterValue = explode(',', $arrFilterUrl[$parameterName], 2);
             }
 
             if ($parameterValue && ($parameterValue[0] || $parameterValue[1])) {
@@ -276,7 +276,7 @@ abstract class AbstractRange extends Simple
                 'colname'   => $attribute->getColName(),
             ],
             // We need to implode to have it transported correctly in the frontend filter.
-            'urlvalue'      => !empty($currentValue) ? implode('__', $currentValue) : ''
+            'urlvalue'      => !empty($currentValue) ? implode(',', $currentValue) : ''
         ];
     }
 
