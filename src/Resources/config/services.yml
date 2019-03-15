@@ -1,0 +1,37 @@
+services:
+    metamodels.filter_range.factory:
+        class: MetaModels\FilterRangeBundle\FilterSetting\RangeFilterSettingTypeFactory
+        arguments:
+          - '@event_dispatcher'
+          - '@MetaModels\Filter\FilterUrlBuilder'
+        tags:
+          - { name: metamodels.filter_factory }
+
+    metamodels.filter_range.date_factory:
+        class: MetaModels\FilterRangeBundle\FilterSetting\RangeDateFilterSettingTypeFactory
+        arguments:
+          - '@event_dispatcher'
+          - '@MetaModels\Filter\FilterUrlBuilder'
+        tags:
+          - { name: metamodels.filter_factory }
+
+    metamodels.filter_range.listener.decode_property_value_for_widget:
+        class: MetaModels\FilterRangeBundle\EventListener\DcGeneral\Table\FilterSetting\DecodePropertyValueForWidgetListener
+        arguments:
+          - '@metamodels.filter_setting_factory'
+        tags:
+          - { name: kernel.event_listener, event: dc-general.view.contao2backend.decode-property-value-for-widget, method: handle}
+
+    metamodels.filter_range.listener.encode_property_value_from_widget:
+        class: MetaModels\FilterRangeBundle\EventListener\DcGeneral\Table\FilterSetting\EncodePropertyValueFromWidgetListener
+        arguments:
+          - '@metamodels.filter_setting_factory'
+        tags:
+          - { name: kernel.event_listener, event: dc-general.view.contao2backend.encode-property-value-from-widget, method: handle}
+
+    metamodels.filter_range.listener.get_property_options:
+        class: MetaModels\FilterRangeBundle\EventListener\DcGeneral\Table\FilterSetting\GetPropertyOptionsListener
+        arguments:
+          - '@metamodels.filter_setting_factory'
+        tags:
+          - { name: kernel.event_listener, event: dc-general.view.contao2backend.get-property-options, method: handle}

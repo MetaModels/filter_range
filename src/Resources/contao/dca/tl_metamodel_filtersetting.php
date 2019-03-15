@@ -16,6 +16,8 @@
  * @author     Andreas Isaak <info@andreas-isaak.de>
  * @author     Christian de la Haye <service@delahaye.de>
  * @author     Ingolf Steinhardt <info@e-spin.de>
+ * @author     Richard Henkenjohann <richardhenkenjohann@googlemail.com>
+ * @author     Sven Baumann <baumann.sv@gmail.com>
  * @copyright  2012-2019 The MetaModels team.
  * @license    https://github.com/MetaModels/filter_range/blob/master/LICENSE LGPL-3.0-or-later
  * @filesource
@@ -62,104 +64,96 @@ $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['rangedate exte
     'tofield';
 
 
-$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['moreequal'] = array
-(
+$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['moreequal'] = [
     'label'     => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['moreequal'],
     'exclude'   => true,
     'default'   => true,
     'inputType' => 'checkbox',
     'sql'       => 'char(1) NOT NULL default \'1\'',
-    'eval'      => array
-    (
-        'tl_class' => 'w50'
-    )
-);
+    'eval'      => [
+        'tl_class' => 'w50',
+    ],
+    'sql'       => "char(1) NOT NULL default '1'",
+];
 
-$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['lessequal'] = array
-(
+$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['lessequal'] = [
     'label'     => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['lessequal'],
     'exclude'   => true,
     'default'   => true,
     'inputType' => 'checkbox',
     'sql'       => 'char(1) NOT NULL default \'1\'',
-    'eval'      => array
-    (
-        'tl_class' => 'w50'
-    )
-);
+    'eval'      => [
+        'tl_class' => 'w50',
+    ],
+    'sql'       => "char(1) NOT NULL default '1'",
+];
 
-$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['fromfield'] = array
-(
+$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['fromfield'] = [
     'label'     => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['fromfield'],
     'exclude'   => true,
     'default'   => true,
     'inputType' => 'checkbox',
     'sql'       => 'char(1) NOT NULL default \'1\'',
-    'eval'      => array
-    (
+    'eval'      => [
         'tl_class' => 'w50',
-    ),
-);
+    ],
+    'sql'       => "char(1) NOT NULL default '1'",
+];
 
-$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['tofield'] = array
-(
+$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['tofield'] = [
     'label'     => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['tofield'],
     'exclude'   => true,
     'default'   => true,
     'inputType' => 'checkbox',
     'sql'       => 'char(1) NOT NULL default \'1\'',
-    'eval'      => array
-    (
+    'eval'      => [
         'tl_class' => 'w50',
-    ),
-);
+    ],
+    'sql'       => "char(1) NOT NULL default '1'",
+];
 
-$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['dateformat'] = array
-(
+$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['dateformat'] = [
     'label'     => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['dateformat'],
     'exclude'   => true,
     'inputType' => 'text',
     'sql'       => 'char(32) NOT NULL default \'\'',
-    'eval'      => array
-    (
-        'tl_class' => 'w50'
-    )
-);
+    'eval'      => [
+        'tl_class' => 'w50',
+    ],
+    'sql'       => "char(32) NOT NULL default ''",
+];
 
-$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['timetype'] = array
-(
+$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['timetype'] = [
     'label'     => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['timetype'],
     'exclude'   => true,
     'inputType' => 'select',
     'reference' => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['timetypeOptions'],
-    'options'   => array
-    (
+    'options'   => [
         'time',
         'date',
-        'datim'
-    ),
+        'datim',
+    ],
     'sql'       => 'varchar(64) NOT NULL default \'\'',
-    'eval'      => array
-    (
+    'eval'      => [
         'doNotSaveEmpty' => true,
-        'tl_class'       => 'w50'
-    )
-);
+        'tl_class'       => 'w50',
+    ],
+    'sql'       => "varchar(64) NOT NULL default ''",
+];
 
-$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['attr_id2'] = array
-(
+$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['attr_id2'] = [
     'label'     => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['attr_id2'],
     'exclude'   => true,
     'inputType' => 'select',
     'sql'       => 'int(10) unsigned NOT NULL default \'0\'',
-    'eval'      => array
-    (
+    'eval'      => [
         'doNotSaveEmpty'     => true,
         'alwaysSave'         => true,
         'submitOnChange'     => true,
         'includeBlankOption' => true,
         'mandatory'          => true,
         'tl_class'           => 'w50',
-        'chosen'             => true
-    ),
-);
+        'chosen'             => true,
+    ],
+    'sql'       => "int(10) unsigned NOT NULL default '0'",
+];

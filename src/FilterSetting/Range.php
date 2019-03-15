@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of MetaModels/filter_range.
  *
@@ -11,25 +12,27 @@
  *
  * @package    MetaModels/filter_range
  * @author     Christian Schiffler <c.schiffler@cyberspectrum.de>
+ * @author     Stefan Heimes <stefan_heimes@hotmail.com>
+ * @author     Andreas Isaak <info@andreas-isaak.de>
+ * @author     Christian de la Haye <service@delahaye.de>
+ * @author     Richard Henkenjohann <richardhenkenjohann@googlemail.com>
  * @copyright  2012-2019 The MetaModels team.
  * @license    https://github.com/MetaModels/filter_range/blob/master/LICENSE LGPL-3.0-or-later
  * @filesource
  */
 
-error_reporting(E_ALL);
+namespace MetaModels\FilterRangeBundle\FilterSetting;
 
-function includeIfExists($file)
+/**
+ * Filter "value in range of 2 fields" for FE-filtering, based on filters by the meta models team.
+ */
+class Range extends AbstractRange
 {
-	return file_exists($file) ? include $file : false;
-}
-
-if (
-	// Locally installed dependencies
-	(!$loader = includeIfExists(__DIR__.'/../vendor/autoload.php'))
-	// We are within an composer install.
-	&& (!$loader = includeIfExists(__DIR__.'/../../../autoload.php'))) {
-	echo 'You must set up the project dependencies, run the following commands:'.PHP_EOL.
-		'curl -sS https://getcomposer.org/installer | php'.PHP_EOL.
-		'php composer.phar install'.PHP_EOL;
-	exit(1);
+    /**
+     * {@inheritDoc}
+     */
+    protected function formatValue($value)
+    {
+        return $value;
+    }
 }

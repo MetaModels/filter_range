@@ -2,7 +2,28 @@ ignore:
   - 'Mini Model <minimodel@metamodel.me>'
 
 exclude:
-  - /^contao\/languages/
+  - /^src\/Resources\/contao\/languages/
 
 mapping:
   'Andreas Isaak <info@andreas-isaak.de>': 'Andreas Isaak <andy.jared@googlemail.com>'
+
+copy-left:
+  'Christian Schiffler <c.schiffler@cyberspectrum.de>':
+    - src/EventListener/DcGeneral/Table/FilterSetting/AbstractAbstainingListener.php
+    - src/EventListener/DcGeneral/Table/FilterSetting/DecodePropertyValueForWidgetListener.php
+    - src/EventListener/DcGeneral/Table/FilterSetting/EncodePropertyValueFromWidgetListener.php
+    - src/EventListener/DcGeneral/Table/FilterSetting/GetPropertyOptionsListener.php
+    - src/FilterSetting/RangeDateFilterSettingTypeFactory.php
+    - src/FilterSetting/RangeFilterSettingTypeFactory.php
+  'David Molineus <david.molineus@netzmacht.de>':
+    - src/EventListener/DcGeneral/Table/FilterSetting/AbstractAbstainingListener.php
+    - src/EventListener/DcGeneral/Table/FilterSetting/DecodePropertyValueForWidgetListener.php
+    - src/EventListener/DcGeneral/Table/FilterSetting/EncodePropertyValueFromWidgetListener.php
+    - src/EventListener/DcGeneral/Table/FilterSetting/GetPropertyOptionsListener.php
+  'Stefan Heimes <stefan_heimes@hotmail.com>':
+    - src/EventListener/DcGeneral/Table/FilterSetting/AbstractAbstainingListener.php
+    - src/EventListener/DcGeneral/Table/FilterSetting/DecodePropertyValueForWidgetListener.php
+    - src/EventListener/DcGeneral/Table/FilterSetting/EncodePropertyValueFromWidgetListener.php
+    - src/EventListener/DcGeneral/Table/FilterSetting/GetPropertyOptionsListener.php
+    - src/FilterSetting/RangeDateFilterSettingTypeFactory.php
+    - src/FilterSetting/RangeFilterSettingTypeFactory.php

@@ -1,19 +1,24 @@
 <?php
 
 /**
- * The MetaModels extension allows the creation of multiple collections of custom items,
- * each with its own unique set of selectable attributes, with attribute extendability.
- * The Front-End modules allow you to build powerful listing and filtering of the
- * data in each collection.
+ * * This file is part of MetaModels/filter_range.
  *
- * PHP version 5
+ * (c) 2015-2018 The MetaModels team.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * This project is provided in good faith and hope to be usable by anyone.
+ *
  * @package    MetaModels
- * @subpackage FilterRange
+ * @subpackage FilterRangeBundle
  * @author     Christian de la Haye <service@delahaye.de>
- * @copyright  The MetaModels team.
- * @license    LGPL.
+ * @author     Richard Henkenjohann <richardhenkenjohann@googlemail.com>
+ * @copyright  2015-2018 The MetaModels team.
+ * @license    https://github.com/MetaModels/filter_range/blob/master/LICENSE LGPL-3.0
  * @filesource
  */
+
 
 /**
  * filter types

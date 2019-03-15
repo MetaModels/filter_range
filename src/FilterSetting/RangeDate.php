@@ -13,25 +13,33 @@
  * @package    MetaModels/filter_range
  * @author     Christian Schiffler <c.schiffler@cyberspectrum.de>
  * @author     Stefan Heimes <stefan_heimes@hotmail.com>
- * @author     Andreas Isaak <info@andreas-isaak.de>
- * @author     Christian de la Haye <service@delahaye.de>
+ * @author     Richard Henkenjohann <richardhenkenjohann@googlemail.com>
  * @copyright  2012-2019 The MetaModels team.
  * @license    https://github.com/MetaModels/filter_range/blob/master/LICENSE LGPL-3.0-or-later
  * @filesource
  */
 
-namespace MetaModels\Filter\Setting;
+namespace MetaModels\FilterRangeBundle\FilterSetting;
 
 /**
  * Filter "value in range of 2 fields" for FE-filtering, based on filters by the meta models team.
  */
-class Range extends AbstractRange
+class RangeDate extends AbstractRange
 {
     /**
      * {@inheritDoc}
      */
     protected function formatValue($value)
     {
-        return $value;
+        // Try to make a date from a string.
+        $date = \DateTime::createFromFormat($this->get('dateformat'), $value);
+
+        // Check if we have a date, if not return a empty string.
+        if (false === $date) {
+            return '';
+        }
+
+        // Make a unix timestamp from the string.
+        return $date->getTimestamp();
     }
 }
