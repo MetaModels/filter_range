@@ -14,12 +14,15 @@
  * @author     Christian Schiffler <c.schiffler@cyberspectrum.de>
  * @author     Stefan Heimes <stefan_heimes@hotmail.com>
  * @author     Richard Henkenjohann <richardhenkenjohann@googlemail.com>
+ * @author     Ingolf Steinhardt <info@e-spin.de>
  * @copyright  2012-2019 The MetaModels team.
  * @license    https://github.com/MetaModels/filter_range/blob/master/LICENSE LGPL-3.0-or-later
  * @filesource
  */
 
 namespace MetaModels\FilterRangeBundle\FilterSetting;
+
+use Contao\Config;
 
 /**
  * Filter "value in range of 2 fields" for FE-filtering, based on filters by the meta models team.
@@ -31,8 +34,10 @@ class RangeDate extends AbstractRange
      */
     protected function formatValue($value)
     {
+        $dateFormat = $this->get('dateformat') ?: Config::get('dateFormat');
+
         // Try to make a date from a string.
-        $date = \DateTime::createFromFormat($this->get('dateformat'), $value);
+        $date = \DateTime::createFromFormat($dateFormat, $value);
 
         // Check if we have a date, if not return a empty string.
         if (false === $date) {
