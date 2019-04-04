@@ -35,3 +35,13 @@ services:
           - '@metamodels.filter_setting_factory'
         tags:
           - { name: kernel.event_listener, event: dc-general.view.contao2backend.get-property-options, method: handle}
+
+    metamodels.filter_range.listener.filter_setting_renderer:
+        class: MetaModels\FilterRangeBundle\EventListener\DcGeneral\Table\FilterSetting\RangeFilterSettingTypeRendererListener
+        arguments:
+          - "@metamodels.filter_setting_factory"
+          - "@event_dispatcher"
+          - "@metamodels.assets.icon_builder"
+          - "@cca.dc-general.scope-matcher"
+        tags:
+          -  { name: kernel.event_listener, event: 'dc-general.view.contao2backend.model-to-label', method: modelToLabel}
