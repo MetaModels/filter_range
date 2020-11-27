@@ -71,7 +71,7 @@ $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['moreequal'] = [
     'inputType' => 'checkbox',
     'sql'       => 'char(1) NOT NULL default \'1\'',
     'eval'      => [
-        'tl_class' => 'w50',
+        'tl_class' => 'clr w50 cbx m12',
     ],
     'sql'       => "char(1) NOT NULL default '1'",
 ];
@@ -80,7 +80,7 @@ $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['lessequal'] = [
     'label'     => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['lessequal'],
     'exclude'   => true,
     'default'   => true,
-    'inputType' => 'checkbox',
+    'inputType' => 'checkbox cbx m12',
     'sql'       => 'char(1) NOT NULL default \'1\'',
     'eval'      => [
         'tl_class' => 'w50',
@@ -95,7 +95,7 @@ $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['fromfield'] = [
     'inputType' => 'checkbox',
     'sql'       => 'char(1) NOT NULL default \'1\'',
     'eval'      => [
-        'tl_class' => 'w50',
+        'tl_class' => 'clr w50 cbx m12',
     ],
     'sql'       => "char(1) NOT NULL default '1'",
 ];
@@ -107,7 +107,7 @@ $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['tofield'] = [
     'inputType' => 'checkbox',
     'sql'       => 'char(1) NOT NULL default \'1\'',
     'eval'      => [
-        'tl_class' => 'w50',
+        'tl_class' => 'w50 cbx m12',
     ],
     'sql'       => "char(1) NOT NULL default '1'",
 ];
@@ -118,7 +118,7 @@ $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['dateformat'] = [
     'inputType' => 'text',
     'sql'       => 'char(32) NOT NULL default \'\'',
     'eval'      => [
-        'tl_class' => 'w50',
+        'tl_class' => 'w50 cbx m12',
     ],
     'sql'       => "char(32) NOT NULL default ''",
 ];
