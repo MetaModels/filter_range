@@ -42,6 +42,8 @@ $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['range extends 
     'fromfield';
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['range extends _attribute_']['+fefilter'][] =
     'tofield';
+$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['range extends _attribute_']['+fefilter'][] =
+    'cssID';
 
 // From/To for date.
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['rangedate extends _attribute_']['+config'][]   =
@@ -66,7 +68,8 @@ $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['rangedate exte
     'fromfield';
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['rangedate extends _attribute_']['+fefilter'][] =
     'tofield';
-
+$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['rangedate extends _attribute_']['+fefilter'][] =
+    'cssID';
 
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['moreequal'] = [
     'label'     => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['moreequal'],
