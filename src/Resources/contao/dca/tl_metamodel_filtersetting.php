@@ -23,6 +23,8 @@
  * @filesource
  */
 
+use Contao\Config;
+
 // Range normal.
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['range extends _attribute_']['+config'][]   =
     'attr_id2';
@@ -119,8 +121,10 @@ $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['dateformat'] = [
     'label'     => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['dateformat'],
     'exclude'   => true,
     'inputType' => 'text',
+    'default'   => Config::get('dateFormat'),
     'eval'      => [
-        'tl_class' => 'w50 cbx m12',
+        'mandatory' => true,
+        'tl_class'  => 'w50',
     ],
     'sql'       => 'char(32) NOT NULL default \'\'',
 ];
@@ -131,9 +135,9 @@ $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['timetype'] = [
     'inputType' => 'select',
     'reference' => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['timetypeOptions'],
     'options'   => [
-        'time',
         'date',
         'datim',
+        'time',
     ],
     'eval'      => [
         'doNotSaveEmpty' => true,
