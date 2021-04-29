@@ -3,7 +3,7 @@
 /**
  * This file is part of MetaModels/filter_range.
  *
- * (c) 2012-2019 The MetaModels team.
+ * (c) 2012-2021 The MetaModels team.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -14,7 +14,8 @@
  * @author     Christian Schiffler <c.schiffler@cyberspectrum.de>
  * @author     Stefan Heimes <stefan_heimes@hotmail.com>
  * @author     Richard Henkenjohann <richardhenkenjohann@googlemail.com>
- * @copyright  2012-2019 The MetaModels team.
+ * @author     Ingolf Steinhardt <info@e-spin.de>
+ * @copyright  2012-2021 The MetaModels team.
  * @license    https://github.com/MetaModels/filter_range/blob/master/LICENSE LGPL-3.0-or-later
  * @filesource
  */
@@ -263,20 +264,21 @@ abstract class AbstractRange extends Simple
     protected function getFilterWidgetParameters(IAttribute $attribute, $currentValue, $ids)
     {
         return [
-            'label'         => $this->prepareWidgetLabel($attribute),
-            'inputType'     => 'multitext',
-            'options'       => $this->prepareWidgetOptions($ids, $attribute),
-            'timetype'      => $this->get('timetype'),
-            'dateformat'    => $this->get('dateformat'),
-            'eval'          => [
-                'multiple'  => true,
-                'size'      => $this->get('fromfield') && $this->get('tofield') ? 2 : 1,
-                'urlparam'  => $this->getParamName(),
-                'template'  => $this->get('template'),
-                'colname'   => $attribute->getColName(),
+            'label'      => $this->prepareWidgetLabel($attribute),
+            'inputType'  => 'multitext',
+            'options'    => $this->prepareWidgetOptions($ids, $attribute),
+            'timetype'   => $this->get('timetype'),
+            'dateformat' => $this->get('dateformat'),
+            'eval'       => [
+                'multiple'    => true,
+                'size'        => $this->get('fromfield') && $this->get('tofield') ? 2 : 1,
+                'urlparam'    => $this->getParamName(),
+                'template'    => $this->get('template'),
+                'colname'     => $attribute->getColName(),
+                'placeholder' => $this->get('placeholder')
             ],
             // We need to implode to have it transported correctly in the frontend filter.
-            'urlvalue'      => !empty($currentValue) ? implode(',', $currentValue) : ''
+            'urlvalue'   => !empty($currentValue) ? implode(',', $currentValue) : ''
         ];
     }
 
@@ -294,7 +296,7 @@ abstract class AbstractRange extends Simple
             return [];
         }
 
-        list($privateFilterUrl, $currentValue) = $this->prepareWidgetParamAndFilterUrl($arrFilterUrl);
+        [$privateFilterUrl, $currentValue] = $this->prepareWidgetParamAndFilterUrl($arrFilterUrl);
 
         $this->registerFilterParameter();
 
