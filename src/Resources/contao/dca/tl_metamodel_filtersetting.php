@@ -39,6 +39,8 @@ $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['range extends 
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['range extends _attribute_']['+fefilter'][] =
     'placeholder';
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['range extends _attribute_']['+fefilter'][] =
+    'filterrange_type';
+$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['range extends _attribute_']['+fefilter'][] =
     'moreequal';
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['range extends _attribute_']['+fefilter'][] =
     'lessequal';
@@ -66,6 +68,8 @@ $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['rangedate exte
     'template';
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['rangedate extends _attribute_']['+fefilter'][] =
     'placeholder';
+$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['rangedate extends _attribute_']['+fefilter'][] =
+    'filterrange_type';
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['rangedate extends _attribute_']['+fefilter'][] =
     'moreequal';
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['rangedate extends _attribute_']['+fefilter'][] =
@@ -172,4 +176,22 @@ $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['placeholder'] = [
     'inputType' => 'text',
     'eval'      => ['tl_class' => 'clr w50'],
     'sql'       => ['type' => 'string', 'length' => 255, 'default' => ''],
+];
+
+$GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['filterrange_type'] = [
+    'label'       => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['filterrange_type'],
+    'exclude'     => true,
+    'inputType'   => 'select',
+    'options'     => ['s1', 's2', 's3', 's4', 's5'],
+    'reference'   => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['filterrangetypeOptions'],
+    'default'     => 's4',
+    'eval'        => [
+        'includeBlankOption' => true,
+        'mandatory'          => true,
+        'tl_class'           => 'clr w50',
+        'chosen'             => true,
+        'helpwizard'         => true,
+    ],
+    'explanation' => 'filterrangetypeOptions',
+    'sql'         => ['type' => 'string', 'length' => 3, 'default' => 's4'],
 ];
