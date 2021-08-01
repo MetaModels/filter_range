@@ -60,6 +60,8 @@ abstract class AbstractAbstainingListener
      * @param ModelInterface     $model          The current model.
      *
      * @return bool True => It is a allowed one | False => nope
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function isAllowedContext($dataDefinition, $propertyName, $model)
     {
