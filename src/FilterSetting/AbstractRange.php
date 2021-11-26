@@ -271,7 +271,8 @@ abstract class AbstractRange extends Simple
                 'urlparam'    => $this->getParamName(),
                 'template'    => $this->get('template'),
                 'colname'     => $attribute->getColName(),
-                'placeholder' => $this->get('placeholder')
+                'placeholder' => $this->get('placeholder'),
+                'hide_label'  => $this->get('hide_label'),
             ],
             // We need to implode to have it transported correctly in the frontend filter.
             'urlvalue'   => !empty($currentValue) ? implode(',', $currentValue) : ''
