@@ -3,7 +3,7 @@
 /**
  * This file is part of MetaModels/filter_range.
  *
- * (c) 2012-2021 The MetaModels team.
+ * (c) 2012-2022 The MetaModels team.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -15,7 +15,7 @@
  * @author     Stefan Heimes <stefan_heimes@hotmail.com>
  * @author     Richard Henkenjohann <richardhenkenjohann@googlemail.com>
  * @author     Ingolf Steinhardt <info@e-spin.de>
- * @copyright  2012-2021 The MetaModels team.
+ * @copyright  2012-2022 The MetaModels team.
  * @license    https://github.com/MetaModels/filter_range/blob/master/LICENSE LGPL-3.0-or-later
  * @filesource
  */
@@ -64,8 +64,8 @@ abstract class AbstractRange extends Simple
         return [
             $this->getParamName() => sprintf(
                 '%s / %s',
-                $this->getMetaModel()->getAttributeById($this->get('attr_id'))->getName(),
-                $this->getMetaModel()->getAttributeById($this->get('attr_id2'))->getName()
+                $this->getMetaModel()->getAttributeById((int) $this->get('attr_id'))->getName(),
+                $this->getMetaModel()->getAttributeById((int) $this->get('attr_id2'))->getName()
             )
         ];
     }
@@ -99,8 +99,8 @@ abstract class AbstractRange extends Simple
     public function getReferencedAttributes()
     {
         $objMetaModel  = $this->getMetaModel();
-        $objAttribute  = $objMetaModel->getAttributeById($this->get('attr_id'));
-        $objAttribute2 = $objMetaModel->getAttributeById($this->get('attr_id2'));
+        $objAttribute  = $objMetaModel->getAttributeById((int) $this->get('attr_id'));
+        $objAttribute2 = $objMetaModel->getAttributeById((int) $this->get('attr_id2'));
         $arrResult     = [];
 
         if ($objAttribute) {
@@ -123,7 +123,7 @@ abstract class AbstractRange extends Simple
             return $this->get('urlparam');
         }
 
-        $objAttribute = $this->getMetaModel()->getAttributeById($this->get('attr_id'));
+        $objAttribute = $this->getMetaModel()->getAttributeById((int) $this->get('attr_id'));
         if ($objAttribute) {
             return $objAttribute->getColName();
         }
@@ -288,7 +288,7 @@ abstract class AbstractRange extends Simple
         $arrJumpTo,
         FrontendFilterOptions $objFrontendFilterOptions
     ) {
-        $objAttribute = $this->getMetaModel()->getAttributeById($this->get('attr_id'));
+        $objAttribute = $this->getMetaModel()->getAttributeById((int) $this->get('attr_id'));
         if (!$objAttribute) {
             return [];
         }
@@ -320,8 +320,8 @@ abstract class AbstractRange extends Simple
         }
 
         // Get the attributes.
-        $attribute  = $this->getMetaModel()->getAttributeById($this->get('attr_id'));
-        $attribute2 = $this->getMetaModel()->getAttributeById($this->get('attr_id2'));
+        $attribute  = $this->getMetaModel()->getAttributeById((int) $this->get('attr_id'));
+        $attribute2 = $this->getMetaModel()->getAttributeById((int) $this->get('attr_id2'));
 
         // Check if we have a valid value.
         if (!$attribute) {
