@@ -3,7 +3,7 @@
 /**
  * This file is part of MetaModels/filter_range.
  *
- * (c) 2012-2021 The MetaModels team.
+ * (c) 2012-2022 The MetaModels team.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -15,7 +15,7 @@
  * @author     Stefan Heimes <stefan_heimes@hotmail.com>
  * @author     Richard Henkenjohann <richardhenkenjohann@googlemail.com>
  * @author     Ingolf Steinhardt <info@e-spin.de>
- * @copyright  2012-2021 The MetaModels team.
+ * @copyright  2012-2022 The MetaModels team.
  * @license    https://github.com/MetaModels/filter_range/blob/master/LICENSE LGPL-3.0-or-later
  * @filesource
  */
@@ -309,6 +309,9 @@ abstract class AbstractRange extends Simple
 
     /**
      * {@inheritdoc}
+     *
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
     public function prepareRules(IFilter $objFilter, $arrFilterUrl)
     {
@@ -359,7 +362,8 @@ abstract class AbstractRange extends Simple
          * S4: S1 OR S2 OR S3              The first or the second value must be in the range.
          * S5: ------13---------------22-- The range must be between the first and second value.
          */
-        $filterType = $this->get('filterrange_type');
+
+       $filterType = $this->get('filterrange_type');
 
         switch ($filterType) {
             case 's1':
@@ -404,7 +408,6 @@ abstract class AbstractRange extends Simple
 
                 $result = array_unique(array_intersect($upperMatches, $lowerMatches));
 
-                break;
                 break;
             case 's4':
                 $filterOne
