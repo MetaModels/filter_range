@@ -363,7 +363,7 @@ abstract class AbstractRange extends Simple
          * S5: ------13---------------22-- The range must be between the first and second value.
          */
 
-       $filterType = $this->get('filterrange_type');
+        $filterType = $this->get('filterrange_type');
 
         switch ($filterType) {
             case 's1':
@@ -410,6 +410,7 @@ abstract class AbstractRange extends Simple
 
                 break;
             case 's4':
+            default:
                 $filterOne
                     ->addFilterRule(new LessThan($attribute, $this->formatValue($value[0]), $moreEqual))
                     ->addFilterRule(new GreaterThan($attribute2, $this->formatValue($value[0]), $lessEqual));
