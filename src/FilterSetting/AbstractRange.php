@@ -309,6 +309,9 @@ abstract class AbstractRange extends Simple
 
     /**
      * {@inheritdoc}
+     *
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
     public function prepareRules(IFilter $objFilter, $arrFilterUrl)
     {
@@ -359,6 +362,7 @@ abstract class AbstractRange extends Simple
          * S4: S1 OR S2 OR S3              The first or the second value must be in the range.
          * S5: ------13---------------22-- The range must be between the first and second value.
          */
+
         $filterType = $this->get('filterrange_type');
 
         switch ($filterType) {
@@ -405,8 +409,8 @@ abstract class AbstractRange extends Simple
                 $result = array_unique(array_intersect($upperMatches, $lowerMatches));
 
                 break;
-                break;
             case 's4':
+            default:
                 $filterOne
                     ->addFilterRule(new LessThan($attribute, $this->formatValue($value[0]), $moreEqual))
                     ->addFilterRule(new GreaterThan($attribute2, $this->formatValue($value[0]), $lessEqual));
