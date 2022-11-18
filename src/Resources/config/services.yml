@@ -33,6 +33,7 @@ services:
         class: MetaModels\FilterRangeBundle\EventListener\DcGeneral\Table\FilterSetting\GetPropertyOptionsListener
         arguments:
           - '@metamodels.filter_setting_factory'
+          - '@MetaModels\CoreBundle\Formatter\SelectAttributeOptionLabelFormatter'
         tags:
           - { name: kernel.event_listener, event: dc-general.view.contao2backend.get-property-options, method: handle}
 

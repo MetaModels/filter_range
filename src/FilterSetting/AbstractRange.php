@@ -3,7 +3,7 @@
 /**
  * This file is part of MetaModels/filter_range.
  *
- * (c) 2012-2019 The MetaModels team.
+ * (c) 2012-2022 The MetaModels team.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -14,7 +14,8 @@
  * @author     Christian Schiffler <c.schiffler@cyberspectrum.de>
  * @author     Stefan Heimes <stefan_heimes@hotmail.com>
  * @author     Richard Henkenjohann <richardhenkenjohann@googlemail.com>
- * @copyright  2012-2019 The MetaModels team.
+ * @author     Ingolf Steinhardt <info@e-spin.de>
+ * @copyright  2012-2022 The MetaModels team.
  * @license    https://github.com/MetaModels/filter_range/blob/master/LICENSE LGPL-3.0-or-later
  * @filesource
  */
@@ -30,11 +31,7 @@ use MetaModels\Filter\Setting\Simple;
 use MetaModels\FrontendIntegration\FrontendFilterOptions;
 
 /**
- * Filter "value in range of 2 fields" for FE-filtering, based on filters by the meta models team.
- *
- * @package    MetaModels
- * @subpackage FilterRange
- * @author     Christian de la Haye <service@delahaye.de>
+ * Filter "value in range of 2 fields" for FE-filtering.
  */
 abstract class AbstractRange extends Simple
 {
@@ -263,20 +260,22 @@ abstract class AbstractRange extends Simple
     protected function getFilterWidgetParameters(IAttribute $attribute, $currentValue, $ids)
     {
         return [
-            'label'         => $this->prepareWidgetLabel($attribute),
-            'inputType'     => 'multitext',
-            'options'       => $this->prepareWidgetOptions($ids, $attribute),
-            'timetype'      => $this->get('timetype'),
-            'dateformat'    => $this->get('dateformat'),
-            'eval'          => [
-                'multiple'  => true,
-                'size'      => $this->get('fromfield') && $this->get('tofield') ? 2 : 1,
-                'urlparam'  => $this->getParamName(),
-                'template'  => $this->get('template'),
-                'colname'   => $attribute->getColName(),
+            'label'      => $this->prepareWidgetLabel($attribute),
+            'inputType'  => 'multitext',
+            'options'    => $this->prepareWidgetOptions($ids, $attribute),
+            'timetype'   => $this->get('timetype'),
+            'dateformat' => $this->get('dateformat'),
+            'eval'       => [
+                'multiple'    => true,
+                'size'        => $this->get('fromfield') && $this->get('tofield') ? 2 : 1,
+                'urlparam'    => $this->getParamName(),
+                'template'    => $this->get('template'),
+                'colname'     => $attribute->getColName(),
+                'placeholder' => $this->get('placeholder'),
+                'hide_label'  => $this->get('hide_label'),
             ],
             // We need to implode to have it transported correctly in the frontend filter.
-            'urlvalue'      => !empty($currentValue) ? implode(',', $currentValue) : ''
+            'urlvalue'   => !empty($currentValue) ? implode(',', $currentValue) : ''
         ];
     }
 
@@ -294,7 +293,7 @@ abstract class AbstractRange extends Simple
             return [];
         }
 
-        list($privateFilterUrl, $currentValue) = $this->prepareWidgetParamAndFilterUrl($arrFilterUrl);
+        [$privateFilterUrl, $currentValue] = $this->prepareWidgetParamAndFilterUrl($arrFilterUrl);
 
         $this->registerFilterParameter();
 
@@ -310,6 +309,9 @@ abstract class AbstractRange extends Simple
 
     /**
      * {@inheritdoc}
+     *
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
     public function prepareRules(IFilter $objFilter, $arrFilterUrl)
     {
@@ -350,18 +352,95 @@ abstract class AbstractRange extends Simple
         $moreEqual = (bool) $this->get('moreequal');
         $lessEqual = (bool) $this->get('lessequal');
 
-        $filterOne
-            ->addFilterRule(new LessThan($attribute, $this->formatValue($value[0]), $moreEqual))
-            ->addFilterRule(new GreaterThan($attribute2, $this->formatValue($value[0]), $lessEqual));
+        /*
+         * Get type of filtering.
+         * DB: ---------15---------20----- The data of attribute 1 (=15) and 2 (=20)
+         * we search with two values, e.g. ...
+         * S1: -----------16-----18------- Both values must be in the range.
+         * S2: ------13----------18------- The second value must be in the range.
+         * S3: -----------16----------22-- The first value must be in the range.
+         * S4: S1 OR S2 OR S3              The first or the second value must be in the range.
+         * S5: ------13---------------22-- The range must be between the first and second value.
+         */
 
-        $filterTwo
-            ->addFilterRule(new LessThan($attribute, $this->formatValue($value[1]), $moreEqual))
-            ->addFilterRule(new GreaterThan($attribute2, $this->formatValue($value[1]), $lessEqual));
+        $filterType = $this->get('filterrange_type');
 
-        $upperMatches = $filterOne->getMatchingIds();
-        $lowerMatches = $filterTwo->getMatchingIds();
+        switch ($filterType) {
+            case 's1':
+                $filterOne
+                    ->addFilterRule(new LessThan($attribute, $this->formatValue($value[0]), $moreEqual))
+                    ->addFilterRule(new GreaterThan($attribute2, $this->formatValue($value[0]), $lessEqual));
 
-        $result = array_unique(array_merge($upperMatches, $lowerMatches));
+                $filterTwo
+                    ->addFilterRule(new LessThan($attribute, $this->formatValue($value[1]), $moreEqual))
+                    ->addFilterRule(new GreaterThan($attribute2, $this->formatValue($value[1]), $lessEqual));
+
+                $upperMatches = $filterOne->getMatchingIds();
+                $lowerMatches = $filterTwo->getMatchingIds();
+
+                $result = array_unique(array_intersect($upperMatches, $lowerMatches));
+
+                break;
+            case 's2':
+                $filterOne
+                    ->addFilterRule(new GreaterThan($attribute2, $this->formatValue($value[0]), $lessEqual));
+
+                $filterTwo
+                    ->addFilterRule(new LessThan($attribute, $this->formatValue($value[1]), $moreEqual))
+                    ->addFilterRule(new GreaterThan($attribute2, $this->formatValue($value[1]), $lessEqual));
+
+                $upperMatches = $filterOne->getMatchingIds();
+                $lowerMatches = $filterTwo->getMatchingIds();
+
+                $result = array_unique(array_intersect($upperMatches, $lowerMatches));
+
+                break;
+            case 's3':
+                $filterOne
+                    ->addFilterRule(new LessThan($attribute, $this->formatValue($value[0]), $moreEqual))
+                    ->addFilterRule(new GreaterThan($attribute2, $this->formatValue($value[0]), $lessEqual));
+
+                $filterTwo
+                    ->addFilterRule(new LessThan($attribute, $this->formatValue($value[1]), $moreEqual));
+
+                $upperMatches = $filterOne->getMatchingIds();
+                $lowerMatches = $filterTwo->getMatchingIds();
+
+                $result = array_unique(array_intersect($upperMatches, $lowerMatches));
+
+                break;
+            case 's4':
+            default:
+                $filterOne
+                    ->addFilterRule(new LessThan($attribute, $this->formatValue($value[0]), $moreEqual))
+                    ->addFilterRule(new GreaterThan($attribute2, $this->formatValue($value[0]), $lessEqual));
+
+                $filterTwo
+                    ->addFilterRule(new LessThan($attribute, $this->formatValue($value[1]), $moreEqual))
+                    ->addFilterRule(new GreaterThan($attribute2, $this->formatValue($value[1]), $lessEqual));
+
+                $upperMatches = $filterOne->getMatchingIds();
+                $lowerMatches = $filterTwo->getMatchingIds();
+
+                $result = array_unique(array_merge($upperMatches, $lowerMatches));
+
+                break;
+            case 's5':
+                $filterOne
+                    ->addFilterRule(new GreaterThan($attribute, $this->formatValue($value[0]), $moreEqual))
+                    ->addFilterRule(new GreaterThan($attribute2, $this->formatValue($value[0]), $lessEqual));
+
+                $filterTwo
+                    ->addFilterRule(new LessThan($attribute, $this->formatValue($value[1]), $moreEqual))
+                    ->addFilterRule(new LessThan($attribute2, $this->formatValue($value[1]), $lessEqual));
+
+                $upperMatches = $filterOne->getMatchingIds();
+                $lowerMatches = $filterTwo->getMatchingIds();
+
+                $result = array_unique(array_intersect($upperMatches, $lowerMatches));
+
+                break;
+        }
 
         $objFilter->addFilterRule(new StaticIdList($result));
     }
