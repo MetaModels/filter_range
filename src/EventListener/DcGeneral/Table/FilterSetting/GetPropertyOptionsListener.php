@@ -3,7 +3,7 @@
 /**
  * This file is part of MetaModels/filter_range.
  *
- * (c) 2012-2021 The MetaModels team.
+ * (c) 2012-2024 The MetaModels team.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -16,7 +16,7 @@
  * @author     David Molineus <david.molineus@netzmacht.de>
  * @author     Richard Henkenjohann <richardhenkenjohann@googlemail.com>
  * @author     Ingolf Steinhardt <info@e-spin.de>
- * @copyright  2012-2021 The MetaModels team.
+ * @copyright  2012-2024 The MetaModels team.
  * @license    https://github.com/MetaModels/filter_range/blob/master/LICENSE LGPL-3.0-or-later
  * @filesource
  */
@@ -24,11 +24,14 @@
 namespace MetaModels\FilterRangeBundle\EventListener\DcGeneral\Table\FilterSetting;
 
 use ContaoCommunityAlliance\DcGeneral\Contao\View\Contao2BackendView\Event\GetPropertyOptionsEvent;
+use ContaoCommunityAlliance\DcGeneral\DataDefinition\ContainerInterface;
 use MetaModels\CoreBundle\Formatter\SelectAttributeOptionLabelFormatter;
 use MetaModels\Filter\Setting\IFilterSettingFactory;
 
 /**
  * This generates a option list with alias => name connection for all attributes.
+ *
+ * @SuppressWarnings(PHPMD.LongVariable)
  */
 class GetPropertyOptionsListener extends AbstractAbstainingListener
 {
@@ -37,12 +40,14 @@ class GetPropertyOptionsListener extends AbstractAbstainingListener
      *
      * @var SelectAttributeOptionLabelFormatter
      */
-    private $attributeLabelFormatter;
+    private SelectAttributeOptionLabelFormatter $attributeLabelFormatter;
 
     /**
      * {@inheritDoc}
      *
      * @param SelectAttributeOptionLabelFormatter $attributeLabelFormatter The attribute select option label formatter.
+     *
+     * @SuppressWarnings(PHPMD.LongVariable)
      */
     public function __construct(
         IFilterSettingFactory $filterSettingFactory,
@@ -65,9 +70,15 @@ class GetPropertyOptionsListener extends AbstractAbstainingListener
      */
     public function handle(GetPropertyOptionsEvent $event)
     {
+        $dataDefinition = $event->getEnvironment()->getDataDefinition();
+        assert($dataDefinition instanceof ContainerInterface);
+
+        $propertyName = $event->getPropertyName();
+        assert(\is_string($propertyName));
+
         $isAllowed = $this->isAllowedContext(
-            $event->getEnvironment()->getDataDefinition(),
-            $event->getPropertyName(),
+            $dataDefinition,
+            $propertyName,
             $event->getModel()
         );
 
@@ -89,7 +100,7 @@ class GetPropertyOptionsListener extends AbstractAbstainingListener
         foreach ($metaModel->getAttributes() as $attribute) {
             $typeName = $attribute->get('type');
 
-            if ($typeFilter && (!\in_array($typeName, $typeFilter, true))) {
+            if (\is_array($typeFilter) && (!\in_array($typeName, $typeFilter, true))) {
                 continue;
             }
 

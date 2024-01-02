@@ -6,4 +6,4 @@
 Range filter
 ============
 
-MetaModels range filter.
+MetaModels range filter - work with value within 2 fields.
