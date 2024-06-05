@@ -104,7 +104,7 @@ abstract class AbstractRange extends Simple
     /**
      * Retrieve the attributes that are referenced in this filter setting.
      *
-     * @return array
+     * @return list<string>
      */
     public function getReferencedAttributes()
     {
@@ -197,8 +197,8 @@ abstract class AbstractRange extends Simple
     /**
      * Prepare options for the widget.
      *
-     * @param array|null $arrIds       List of ids.
-     * @param IAttribute $objAttribute The metamodel attribute.
+     * @param list<string>|null $arrIds       List of ids.
+     * @param IAttribute        $objAttribute The metamodel attribute.
      *
      * @return array
      */
@@ -264,9 +264,9 @@ abstract class AbstractRange extends Simple
     /**
      * Get the parameter array for configuring the widget.
      *
-     * @param IAttribute    $attribute    The attribute.
-     * @param array         $currentValue The current value.
-     * @param string[]|null $ids          The list of ids.
+     * @param IAttribute        $attribute    The attribute.
+     * @param array             $currentValue The current value.
+     * @param list<string>|null $ids          The list of ids.
      *
      * @return array
      */
@@ -396,7 +396,7 @@ abstract class AbstractRange extends Simple
                 $upperMatches = $filterOne->getMatchingIds() ?? [];
                 $lowerMatches = $filterTwo->getMatchingIds() ?? [];
 
-                $result = \array_unique(\array_intersect($upperMatches, $lowerMatches));
+                $result = \array_values(\array_unique(\array_intersect($upperMatches, $lowerMatches)));
 
                 break;
             case 's2':
@@ -410,7 +410,7 @@ abstract class AbstractRange extends Simple
                 $upperMatches = $filterOne->getMatchingIds() ?? [];
                 $lowerMatches = $filterTwo->getMatchingIds() ?? [];
 
-                $result = \array_unique(\array_intersect($upperMatches, $lowerMatches));
+                $result = \array_values(\array_unique(\array_intersect($upperMatches, $lowerMatches)));
 
                 break;
             case 's3':
@@ -424,7 +424,7 @@ abstract class AbstractRange extends Simple
                 $upperMatches = $filterOne->getMatchingIds() ?? [];
                 $lowerMatches = $filterTwo->getMatchingIds() ?? [];
 
-                $result = \array_unique(\array_intersect($upperMatches, $lowerMatches));
+                $result = \array_values(\array_unique(\array_intersect($upperMatches, $lowerMatches)));
 
                 break;
             case 's4':
@@ -440,7 +440,7 @@ abstract class AbstractRange extends Simple
                 $upperMatches = $filterOne->getMatchingIds() ?? [];
                 $lowerMatches = $filterTwo->getMatchingIds() ?? [];
 
-                $result = \array_unique(\array_merge($upperMatches, $lowerMatches));
+                $result = \array_values(\array_unique(\array_merge($upperMatches, $lowerMatches)));
 
                 break;
             case 's5':
@@ -455,7 +455,7 @@ abstract class AbstractRange extends Simple
                 $upperMatches = $filterOne->getMatchingIds() ?? [];
                 $lowerMatches = $filterTwo->getMatchingIds() ?? [];
 
-                $result = \array_unique(\array_intersect($upperMatches, $lowerMatches));
+                $result = \array_values(\array_unique(\array_intersect($upperMatches, $lowerMatches)));
 
                 break;
         }

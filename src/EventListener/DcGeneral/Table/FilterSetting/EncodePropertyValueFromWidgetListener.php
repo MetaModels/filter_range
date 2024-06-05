@@ -25,6 +25,7 @@ namespace MetaModels\FilterRangeBundle\EventListener\DcGeneral\Table\FilterSetti
 
 use ContaoCommunityAlliance\DcGeneral\Contao\View\Contao2BackendView\Event\EncodePropertyValueFromWidgetEvent;
 use ContaoCommunityAlliance\DcGeneral\DataDefinition\ContainerInterface;
+use MetaModels\Attribute\IAttribute;
 
 /**
  * This is used to translate attribute names to attribute ids.
@@ -66,6 +67,7 @@ class EncodePropertyValueFromWidgetListener extends AbstractAbstainingListener
         $value = \substr($value, \strlen($metaModel->getTableName() . '_'));
 
         $attribute = $metaModel->getAttribute($value);
+        assert($attribute instanceof IAttribute);
 
         $event->setValue($attribute->get('id'));
     }
