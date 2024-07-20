@@ -81,7 +81,6 @@
       <trans-unit id="filterrangetypeOptions.s5" resname="filterrangetypeOptions.s5">
         <source>The range must be between the first and second value. (S5)</source>
       </trans-unit>
-
     </body>
   </file>
 </xliff>
