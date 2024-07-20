@@ -3,7 +3,7 @@
 /**
  * This file is part of MetaModels/filter_range.
  *
- * (c) 2012-2021 The MetaModels team.
+ * (c) 2012-2024 The MetaModels team.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -18,7 +18,7 @@
  * @author     Ingolf Steinhardt <info@e-spin.de>
  * @author     Richard Henkenjohann <richardhenkenjohann@googlemail.com>
  * @author     Sven Baumann <baumann.sv@gmail.com>
- * @copyright  2012-2021 The MetaModels team.
+ * @copyright  2012-2024 The MetaModels team.
  * @license    https://github.com/MetaModels/filter_range/blob/master/LICENSE LGPL-3.0-or-later
  * @filesource
  */
@@ -82,83 +82,94 @@ $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['metapalettes']['rangedate exte
     'cssID';
 
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['moreequal'] = [
-    'label'     => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['moreequal'],
-    'exclude'   => true,
-    'default'   => '1',
-    'inputType' => 'checkbox',
-    'eval'      => [
+    'label'       => 'moreequal.label',
+    'description' => 'moreequal.description',
+    'exclude'     => true,
+    'default'     => '1',
+    'inputType'   => 'checkbox',
+    'eval'        => [
         'tl_class' => 'clr w50 cbx m12',
     ],
-    'sql'       => 'char(1) NOT NULL default \'1\'',
+    'sql'         => 'char(1) NOT NULL default \'1\'',
 ];
 
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['lessequal'] = [
-    'label'     => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['lessequal'],
-    'exclude'   => true,
-    'default'   => '1',
-    'inputType' => 'checkbox',
-    'eval'      => [
+    'label'       => 'lessequal.label',
+    'description' => 'lessequal.description',
+    'exclude'     => true,
+    'default'     => '1',
+    'inputType'   => 'checkbox',
+    'eval'        => [
         'tl_class' => 'w50 cbx m12',
     ],
-    'sql'       => 'char(1) NOT NULL default \'1\'',
+    'sql'         => 'char(1) NOT NULL default \'1\'',
 ];
 
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['fromfield'] = [
-    'label'     => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['fromfield'],
-    'exclude'   => true,
-    'default'   => '1',
-    'inputType' => 'checkbox',
-    'eval'      => [
+    'label'       => 'fromfield.label',
+    'description' => 'fromfield.description',
+    'exclude'     => true,
+    'default'     => '1',
+    'inputType'   => 'checkbox',
+    'eval'        => [
         'tl_class' => 'clr w50 cbx m12',
     ],
-    'sql'       => 'char(1) NOT NULL default \'1\'',
+    'sql'         => 'char(1) NOT NULL default \'1\'',
 ];
 
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['tofield'] = [
-    'label'     => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['tofield'],
-    'exclude'   => true,
-    'default'   => '1',
-    'inputType' => 'checkbox',
-    'eval'      => [
+    'label'       => 'tofield.label',
+    'description' => 'tofield.description',
+    'exclude'     => true,
+    'default'     => '1',
+    'inputType'   => 'checkbox',
+    'eval'        => [
         'tl_class' => 'w50 cbx m12',
     ],
-    'sql'       => 'char(1) NOT NULL default \'1\'',
+    'sql'         => 'char(1) NOT NULL default \'1\'',
 ];
 
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['dateformat'] = [
-    'label'     => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['dateformat'],
-    'exclude'   => true,
-    'inputType' => 'text',
-    'default'   => Config::get('dateFormat'),
-    'eval'      => [
+    'label'       => 'dateformat.label',
+    'description' => 'dateformat.description',
+    'exclude'     => true,
+    'inputType'   => 'text',
+    'default'     => Config::get('dateFormat'),
+    'eval'        => [
         'mandatory' => true,
         'tl_class'  => 'w50',
     ],
-    'sql'       => 'char(32) NOT NULL default \'\'',
+    'sql'         => 'char(32) NOT NULL default \'\'',
 ];
 
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['timetype'] = [
-    'label'     => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['timetype'],
-    'exclude'   => true,
-    'inputType' => 'select',
-    'reference' => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['timetypeOptions'],
-    'options'   => [
+    'label'       => 'timetype.label',
+    'description' => 'timetype.description',
+    'exclude'     => true,
+    'inputType'   => 'select',
+    'options'     => [
         'date',
         'datim',
         'time',
     ],
-    'eval'      => [
+    'reference'   => [
+        'date'  => 'timetypeOptions.date',
+        'datim' => 'timetypeOptions.datim',
+        'time'  => 'timetypeOptions.time',
+    ],
+    'eval'        => [
         'doNotSaveEmpty' => true,
         'tl_class'       => 'w50',
     ],
-    'sql'       => 'varchar(64) NOT NULL default \'\'',
+    'sql'         => 'varchar(64) NOT NULL default \'\'',
 ];
 
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['attr_id2'] = [
-    'label'     => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['attr_id2'],
-    'exclude'   => true,
-    'inputType' => 'select',
-    'eval'      => [
+    'label'       => 'attr_id2.label',
+    'description' => 'attr_id2.description',
+    'exclude'     => true,
+    'inputType'   => 'select',
+    'eval'        => [
         'doNotSaveEmpty'     => true,
         'alwaysSave'         => true,
         'submitOnChange'     => true,
@@ -167,23 +178,31 @@ $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['attr_id2'] = [
         'tl_class'           => 'w50',
         'chosen'             => true,
     ],
-    'sql'       => 'int(10) unsigned NOT NULL default \'0\'',
+    'sql'         => 'int(10) unsigned NOT NULL default \'0\'',
 ];
 
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['placeholder'] = [
-    'label'     => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['placeholder'],
-    'exclude'   => true,
-    'inputType' => 'text',
-    'eval'      => ['tl_class' => 'clr w50'],
-    'sql'       => ['type' => 'string', 'length' => 255, 'default' => ''],
+    'label'       => 'placeholder.label',
+    'description' => 'placeholder.description',
+    'exclude'     => true,
+    'inputType'   => 'text',
+    'eval'        => ['tl_class' => 'clr w50'],
+    'sql'         => ['type' => 'string', 'length' => 255, 'default' => ''],
 ];
 
 $GLOBALS['TL_DCA']['tl_metamodel_filtersetting']['fields']['filterrange_type'] = [
-    'label'       => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['filterrange_type'],
+    'label'       => 'filterrange_type.label',
+    'description' => 'filterrange_type.description',
     'exclude'     => true,
     'inputType'   => 'select',
     'options'     => ['s1', 's2', 's3', 's4', 's5'],
-    'reference'   => &$GLOBALS['TL_LANG']['tl_metamodel_filtersetting']['filterrangetypeOptions'],
+    'reference'   => [
+        's1' => 'filterrangetypeOptions.s1',
+        's2' => 'filterrangetypeOptions.s2',
+        's3' => 'filterrangetypeOptions.s3',
+        's4' => 'filterrangetypeOptions.s4',
+        's5' => 'filterrangetypeOptions.s5',
+    ],
     'default'     => 's4',
     'eval'        => [
         'includeBlankOption' => true,
