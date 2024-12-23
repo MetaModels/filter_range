@@ -22,6 +22,7 @@
 
 namespace MetaModels\FilterRangeBundle\FilterSetting;
 
+use Contao\StringUtil;
 use MetaModels\Attribute\IAttribute;
 use MetaModels\Filter\IFilter;
 use MetaModels\Filter\Rules\Comparing\GreaterThan;
@@ -272,6 +273,8 @@ abstract class AbstractRange extends Simple
      */
     protected function getFilterWidgetParameters(IAttribute $attribute, $currentValue, $ids)
     {
+        $cssID = StringUtil::deserialize($this->get('cssID'), true);
+
         return [
             'label'      => $this->prepareWidgetLabel($attribute),
             'inputType'  => 'multitext',
@@ -286,6 +289,8 @@ abstract class AbstractRange extends Simple
                 'colname'     => $attribute->getColName(),
                 'placeholder' => $this->get('placeholder'),
                 'hide_label'  => $this->get('hide_label'),
+                'cssID'       => !empty($cssID[0]) ? ' id="' . $cssID[0] . '"' : '',
+                'class'       => !empty($cssID[1]) ? ' ' . $cssID[1] : '',
             ],
             // We need to implode to have it transported correctly in the frontend filter.
             'urlvalue'   => !empty($currentValue) ? implode(',', $currentValue) : ''
