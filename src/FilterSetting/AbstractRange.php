@@ -3,7 +3,7 @@
 /**
  * This file is part of MetaModels/filter_range.
  *
- * (c) 2012-2022 The MetaModels team.
+ * (c) 2012-2024 The MetaModels team.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -15,13 +15,14 @@
  * @author     Stefan Heimes <stefan_heimes@hotmail.com>
  * @author     Richard Henkenjohann <richardhenkenjohann@googlemail.com>
  * @author     Ingolf Steinhardt <info@e-spin.de>
- * @copyright  2012-2022 The MetaModels team.
+ * @copyright  2012-2024 The MetaModels team.
  * @license    https://github.com/MetaModels/filter_range/blob/master/LICENSE LGPL-3.0-or-later
  * @filesource
  */
 
 namespace MetaModels\FilterRangeBundle\FilterSetting;
 
+use Contao\StringUtil;
 use MetaModels\Attribute\IAttribute;
 use MetaModels\Filter\IFilter;
 use MetaModels\Filter\Rules\Comparing\GreaterThan;
@@ -32,6 +33,8 @@ use MetaModels\FrontendIntegration\FrontendFilterOptions;
 
 /**
  * Filter "value in range of 2 fields" for FE-filtering.
+ *
+ * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  */
 abstract class AbstractRange extends Simple
 {
@@ -49,7 +52,10 @@ abstract class AbstractRange extends Simple
      */
     public function getParameters()
     {
-        return ($strParamName = $this->getParamName()) ? [$strParamName] : [];
+        $strParamName = $this->getParamName();
+        assert(\is_string($strParamName));
+
+        return $strParamName ? [$strParamName] : [];
     }
 
     /**
@@ -57,15 +63,18 @@ abstract class AbstractRange extends Simple
      */
     public function getParameterFilterNames()
     {
+        $strParamName = $this->getParamName();
+        assert(\is_string($strParamName));
+
         if ($this->get('label')) {
-            return [$this->getParamName() => $this->get('label')];
+            return [$strParamName => $this->get('label')];
         }
 
         return [
-            $this->getParamName() => sprintf(
+            $strParamName => \sprintf(
                 '%s / %s',
-                $this->getMetaModel()->getAttributeById($this->get('attr_id'))->getName(),
-                $this->getMetaModel()->getAttributeById($this->get('attr_id2'))->getName()
+                $this->getMetaModel()->getAttributeById((int) $this->get('attr_id'))?->getName() ?? '',
+                $this->getMetaModel()->getAttributeById((int) $this->get('attr_id2'))?->getName() ?? ''
             )
         ];
     }
@@ -80,12 +89,14 @@ abstract class AbstractRange extends Simple
     protected function getParameterValue($filterUrl)
     {
         $parameterName = $this->getParamName();
+        assert(\is_string($parameterName));
+
         if (isset($filterUrl[$parameterName]) && !empty($filterUrl[$parameterName])) {
             if (\is_array($filterUrl[$parameterName])) {
-                return array_values(array_filter($filterUrl[$parameterName]));
+                return \array_values(\array_filter($filterUrl[$parameterName]));
             }
 
-            return array_values(array_filter(explode(',', $filterUrl[$parameterName])));
+            return \array_values(\array_filter(\explode(',', $filterUrl[$parameterName])));
         }
 
         return null;
@@ -94,13 +105,13 @@ abstract class AbstractRange extends Simple
     /**
      * Retrieve the attributes that are referenced in this filter setting.
      *
-     * @return array
+     * @return list<string>
      */
     public function getReferencedAttributes()
     {
         $objMetaModel  = $this->getMetaModel();
-        $objAttribute  = $objMetaModel->getAttributeById($this->get('attr_id'));
-        $objAttribute2 = $objMetaModel->getAttributeById($this->get('attr_id2'));
+        $objAttribute  = $objMetaModel->getAttributeById((int) $this->get('attr_id'));
+        $objAttribute2 = $objMetaModel->getAttributeById((int) $this->get('attr_id2'));
         $arrResult     = [];
 
         if ($objAttribute) {
@@ -115,7 +126,9 @@ abstract class AbstractRange extends Simple
     }
 
     /**
-     * {@inheritdoc}
+     * Retrieve the filter parameter name to react on.
+     *
+     * @return string|null
      */
     protected function getParamName()
     {
@@ -123,7 +136,7 @@ abstract class AbstractRange extends Simple
             return $this->get('urlparam');
         }
 
-        $objAttribute = $this->getMetaModel()->getAttributeById($this->get('attr_id'));
+        $objAttribute = $this->getMetaModel()->getAttributeById((int) $this->get('attr_id'));
         if ($objAttribute) {
             return $objAttribute->getColName();
         }
@@ -157,24 +170,27 @@ abstract class AbstractRange extends Simple
      */
     protected function prepareWidgetLabel($objAttribute)
     {
+        $parameterName = $this->getParamName();
+        assert(\is_string($parameterName));
+
         $arrLabel = [
             $this->get('label') ?: $objAttribute->getName(),
-            'GET: ' . $this->getParamName()
+            'GET: ' . $parameterName
         ];
 
-        $fromField = $this->get('fromfield');
-        $toField   = $this->get('tofield');
+        $fromField = (bool) $this->get('fromfield');
+        $toField   = (bool) $this->get('tofield');
 
         if ($fromField && $toField) {
-            $arrLabel[0] .= ' ' . $GLOBALS['TL_LANG']['metamodels_frontendfilter']['fromto'];
+            $arrLabel[0] .= ' ' . $GLOBALS['TL_LANG']['metamodels_frontendfilter']['range_fromto'];
             return $arrLabel;
         }
-        if ($fromField && !$toField) {
-            $arrLabel[0] .= ' ' . $GLOBALS['TL_LANG']['metamodels_frontendfilter']['from'];
+        if (!$toField) {
+            $arrLabel[0] .= ' ' . $GLOBALS['TL_LANG']['metamodels_frontendfilter']['range_from'];
             return $arrLabel;
         }
 
-        $arrLabel[0] .= ' ' . $GLOBALS['TL_LANG']['metamodels_frontendfilter']['to'];
+        $arrLabel[0] .= ' ' . $GLOBALS['TL_LANG']['metamodels_frontendfilter']['range_to'];
 
         return $arrLabel;
     }
@@ -182,8 +198,8 @@ abstract class AbstractRange extends Simple
     /**
      * Prepare options for the widget.
      *
-     * @param array      $arrIds       List of ids.
-     * @param IAttribute $objAttribute The metamodel attribute.
+     * @param list<string>|null $arrIds       List of ids.
+     * @param IAttribute        $objAttribute The metamodel attribute.
      *
      * @return array
      */
@@ -197,10 +213,9 @@ abstract class AbstractRange extends Simple
         // Remove empty values from list.
         foreach ($arrOptions as $mixKeyOption => $mixOption) {
             // Remove html/php tags.
-            $mixOption = strip_tags($mixOption);
-            $mixOption = trim($mixOption);
+            $mixOption = \trim(\strip_tags($mixOption));
 
-            if ('' === $mixOption || null === $mixOption) {
+            if ('' === $mixOption) {
                 unset($arrOptions[$mixKeyOption]);
             }
         }
@@ -218,17 +233,18 @@ abstract class AbstractRange extends Simple
     protected function prepareWidgetParamAndFilterUrl($arrFilterUrl)
     {
         // Split up our param so the widgets can use it again.
-        $parameterName    = $this->getParamName();
+        $parameterName = $this->getParamName();
+        assert(\is_string($parameterName));
         $privateFilterUrl = $arrFilterUrl;
         $parameterValue   = null;
 
         // If we have a value, we have to explode it by double underscore to have a valid value which the active checks
         // may cope with.
-        if (array_key_exists($parameterName, $arrFilterUrl) && !empty($arrFilterUrl[$parameterName])) {
+        if (\array_key_exists($parameterName, $arrFilterUrl) && !empty($arrFilterUrl[$parameterName])) {
             if (\is_array($arrFilterUrl[$parameterName])) {
                 $parameterValue = $arrFilterUrl[$parameterName];
             } else {
-                $parameterValue = explode(',', $arrFilterUrl[$parameterName], 2);
+                $parameterValue = \explode(',', $arrFilterUrl[$parameterName], 2);
             }
 
             if ($parameterValue && ($parameterValue[0] || $parameterValue[1])) {
@@ -249,16 +265,16 @@ abstract class AbstractRange extends Simple
     /**
      * Get the parameter array for configuring the widget.
      *
-     * @param IAttribute $attribute    The attribute.
-     *
-     * @param array      $currentValue The current value.
-     *
-     * @param string[]   $ids          The list of ids.
+     * @param IAttribute        $attribute    The attribute.
+     * @param array             $currentValue The current value.
+     * @param list<string>|null $ids          The list of ids.
      *
      * @return array
      */
     protected function getFilterWidgetParameters(IAttribute $attribute, $currentValue, $ids)
     {
+        $cssID = StringUtil::deserialize($this->get('cssID'), true);
+
         return [
             'label'      => $this->prepareWidgetLabel($attribute),
             'inputType'  => 'multitext',
@@ -273,6 +289,8 @@ abstract class AbstractRange extends Simple
                 'colname'     => $attribute->getColName(),
                 'placeholder' => $this->get('placeholder'),
                 'hide_label'  => $this->get('hide_label'),
+                'cssID'       => !empty($cssID[0]) ? ' id="' . $cssID[0] . '"' : '',
+                'class'       => !empty($cssID[1]) ? ' ' . $cssID[1] : '',
             ],
             // We need to implode to have it transported correctly in the frontend filter.
             'urlvalue'   => !empty($currentValue) ? implode(',', $currentValue) : ''
@@ -281,6 +299,8 @@ abstract class AbstractRange extends Simple
 
     /**
      * {@inheritdoc}
+     *
+     * @SuppressWarnings(PHPMD.LongVariable)
      */
     public function getParameterFilterWidgets(
         $arrIds,
@@ -288,7 +308,7 @@ abstract class AbstractRange extends Simple
         $arrJumpTo,
         FrontendFilterOptions $objFrontendFilterOptions
     ) {
-        $objAttribute = $this->getMetaModel()->getAttributeById($this->get('attr_id'));
+        $objAttribute = $this->getMetaModel()->getAttributeById((int) $this->get('attr_id'));
         if (!$objAttribute) {
             return [];
         }
@@ -297,8 +317,11 @@ abstract class AbstractRange extends Simple
 
         $this->registerFilterParameter();
 
+        $parameterName = $this->getParamName();
+        assert(\is_string($parameterName));
+
         return [
-            $this->getParamName() => $this->prepareFrontendFilterWidget(
+            $parameterName => $this->prepareFrontendFilterWidget(
                 $this->getFilterWidgetParameters($objAttribute, $currentValue, $arrIds),
                 $privateFilterUrl,
                 $arrJumpTo,
@@ -323,8 +346,8 @@ abstract class AbstractRange extends Simple
         }
 
         // Get the attributes.
-        $attribute  = $this->getMetaModel()->getAttributeById($this->get('attr_id'));
-        $attribute2 = $this->getMetaModel()->getAttributeById($this->get('attr_id2'));
+        $attribute  = $this->getMetaModel()->getAttributeById((int) $this->get('attr_id'));
+        $attribute2 = $this->getMetaModel()->getAttributeById((int) $this->get('attr_id2'));
 
         // Check if we have a valid value.
         if (!$attribute) {
@@ -341,7 +364,7 @@ abstract class AbstractRange extends Simple
         $value = $this->getParameterValue($arrFilterUrl);
 
         // No filter values, get out.
-        if (empty($value)) {
+        if (!is_array($value)) {
             $objFilter->addFilterRule(new StaticIdList(null));
 
             return;
@@ -375,10 +398,10 @@ abstract class AbstractRange extends Simple
                     ->addFilterRule(new LessThan($attribute, $this->formatValue($value[1]), $moreEqual))
                     ->addFilterRule(new GreaterThan($attribute2, $this->formatValue($value[1]), $lessEqual));
 
-                $upperMatches = $filterOne->getMatchingIds();
-                $lowerMatches = $filterTwo->getMatchingIds();
+                $upperMatches = $filterOne->getMatchingIds() ?? [];
+                $lowerMatches = $filterTwo->getMatchingIds() ?? [];
 
-                $result = array_unique(array_intersect($upperMatches, $lowerMatches));
+                $result = \array_values(\array_unique(\array_intersect($upperMatches, $lowerMatches)));
 
                 break;
             case 's2':
@@ -389,10 +412,10 @@ abstract class AbstractRange extends Simple
                     ->addFilterRule(new LessThan($attribute, $this->formatValue($value[1]), $moreEqual))
                     ->addFilterRule(new GreaterThan($attribute2, $this->formatValue($value[1]), $lessEqual));
 
-                $upperMatches = $filterOne->getMatchingIds();
-                $lowerMatches = $filterTwo->getMatchingIds();
+                $upperMatches = $filterOne->getMatchingIds() ?? [];
+                $lowerMatches = $filterTwo->getMatchingIds() ?? [];
 
-                $result = array_unique(array_intersect($upperMatches, $lowerMatches));
+                $result = \array_values(\array_unique(\array_intersect($upperMatches, $lowerMatches)));
 
                 break;
             case 's3':
@@ -403,10 +426,10 @@ abstract class AbstractRange extends Simple
                 $filterTwo
                     ->addFilterRule(new LessThan($attribute, $this->formatValue($value[1]), $moreEqual));
 
-                $upperMatches = $filterOne->getMatchingIds();
-                $lowerMatches = $filterTwo->getMatchingIds();
+                $upperMatches = $filterOne->getMatchingIds() ?? [];
+                $lowerMatches = $filterTwo->getMatchingIds() ?? [];
 
-                $result = array_unique(array_intersect($upperMatches, $lowerMatches));
+                $result = \array_values(\array_unique(\array_intersect($upperMatches, $lowerMatches)));
 
                 break;
             case 's4':
@@ -419,10 +442,10 @@ abstract class AbstractRange extends Simple
                     ->addFilterRule(new LessThan($attribute, $this->formatValue($value[1]), $moreEqual))
                     ->addFilterRule(new GreaterThan($attribute2, $this->formatValue($value[1]), $lessEqual));
 
-                $upperMatches = $filterOne->getMatchingIds();
-                $lowerMatches = $filterTwo->getMatchingIds();
+                $upperMatches = $filterOne->getMatchingIds() ?? [];
+                $lowerMatches = $filterTwo->getMatchingIds() ?? [];
 
-                $result = array_unique(array_merge($upperMatches, $lowerMatches));
+                $result = \array_values(\array_unique(\array_merge($upperMatches, $lowerMatches)));
 
                 break;
             case 's5':
@@ -434,10 +457,10 @@ abstract class AbstractRange extends Simple
                     ->addFilterRule(new LessThan($attribute, $this->formatValue($value[1]), $moreEqual))
                     ->addFilterRule(new LessThan($attribute2, $this->formatValue($value[1]), $lessEqual));
 
-                $upperMatches = $filterOne->getMatchingIds();
-                $lowerMatches = $filterTwo->getMatchingIds();
+                $upperMatches = $filterOne->getMatchingIds() ?? [];
+                $lowerMatches = $filterTwo->getMatchingIds() ?? [];
 
-                $result = array_unique(array_intersect($upperMatches, $lowerMatches));
+                $result = \array_values(\array_unique(\array_intersect($upperMatches, $lowerMatches)));
 
                 break;
         }
