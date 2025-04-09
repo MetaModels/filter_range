@@ -105,6 +105,75 @@
         <source>The range must be between the first and second value. (S5)</source>
         <target>Der Bereich muss zwischen dem ersten und dem zweiten Wert liegen. (S5)</target>
       </trans-unit>
+      <trans-unit id="filterrange_type_db.caption" resname="filterrange_type_db.caption">
+        <source>Type of filter range options</source>
+        <target>Typ der Filterbereichs-Option</target>
+      </trans-unit>
+      <trans-unit id="filterrange_type_db.description" resname="filterrange_type_db.description">
+        <source><![CDATA[The filter range has several options on how to handle the comparison between the containment values and the filter values.<br />
+As an example, the following values in the database:<br />
+the data of attribute 1 (=15) and 2 (=20) and an example at every option to find an hit.
+<pre>DB: ---------15---------20-----</pre>]]></source>
+        <target>Für den Filterbereich gibt es mehrere Optionen, wie der Vergleich zwischen den Eingrenzungswerten und den Filterwerten gehandhabt werden soll.&lt;br /&gt;
+Als Beispiel sind folgende Werte in der Datenbank:&lt;br /&gt;
+die Daten der Attribute 1 (=15) und 2 (=20) und ein Beispiel bei jeder Option, um einen Treffer zu finden.
+&lt;pre&gt;DB: ---------15---------20-----&lt;/pre&gt;
+</target>
+      </trans-unit>
+      <trans-unit id="filterrange_type_s1.caption" resname="filterrange_type_s1.caption">
+        <source><![CDATA[S1<br />Both values must be in the range.]]></source>
+        <target>S1&lt;br /&gt;Beide Werte müssen in dem Bereich sein.</target>
+      </trans-unit>
+      <trans-unit id="filterrange_type_s1.description" resname="filterrange_type_s1.description">
+        <source><![CDATA[<pre>S1: -----------16-----18-------</pre>]]></source>
+        <target>&lt;pre&gt;S1: -----------16-----18-------&lt;/pre&gt;</target>
+      </trans-unit>
+      <trans-unit id="filterrange_type_s2.caption" resname="filterrange_type_s2.caption">
+        <source><![CDATA[S2<br />The second value must be in the range.]]></source>
+        <target>S2&lt;br /&gt;Der zweite Wert muss in dem Bereich sein.</target>
+      </trans-unit>
+      <trans-unit id="filterrange_type_s2.description" resname="filterrange_type_s2.description">
+        <source><![CDATA[The first value must be smaller than the right limit of the range, but can also be smaller than the left limit - the second value must be in the range.
+<pre>S2: ------13----------18-------</pre>]]></source>
+        <target>Der erste Wert muss kleiner als die rechte Grenze des Bereichs sein, kann aber auch kleiner als die linke Grenze sein - der zweite Wert muss innerhalb des Bereichs liegen.
+&lt;pre&gt;S2: ------13----------18-------&lt;/pre&gt;
+</target>
+      </trans-unit>
+      <trans-unit id="filterrange_type_s3.caption" resname="filterrange_type_s3.caption">
+        <source><![CDATA[S3<br />The first value must be in the range.]]></source>
+        <target>S3&lt;br /&gt;Der erste Wert muss in dem Bereich sein.</target>
+      </trans-unit>
+      <trans-unit id="filterrange_type_s3.description" resname="filterrange_type_s3.description">
+        <source><![CDATA[The second value must be greater than the left limit of the range, but can also be greater than the right limit - the first value must be in the range.
+<pre>S3: -----------16----------22--<pre>]]></source>
+        <target>Der zweite Wert muss größer sein als die linke Grenze des Bereichs, kann aber auch größer sein als die rechte Grenze - der erste Wert muss innerhalb des Bereichs liegen.
+&lt;pre&gt;S3: -----------16----------22--&lt;pre&gt;
+</target>
+      </trans-unit>
+      <trans-unit id="filterrange_type_s4.caption" resname="filterrange_type_s4.caption">
+        <source><![CDATA[S4<br />The first or the second value must be in the range.]]></source>
+        <target>S4&lt;br /&gt;Der erste oder der zweite Wert muss in dem Bereich sein.</target>
+      </trans-unit>
+      <trans-unit id="filterrange_type_s4.description" resname="filterrange_type_s4.description">
+        <source><![CDATA[At least one value must be within the range - this is a combination of option "S2" and "S3".
+<pre>S2: ------13----------18-------</pre>
+<pre>S3: -----------16----------22--<pre>]]></source>
+        <target>Mindestens ein Wert muss innerhalb des Bereichs liegen - dies ist eine Kombination der Optionen &quot;S2&quot; und &quot;S3&quot;.
+&lt;pre&gt;S2: ------13----------18-------&lt;/pre&gt;
+&lt;pre&gt;S3: -----------16----------22--&lt;pre&gt;
+</target>
+      </trans-unit>
+      <trans-unit id="filterrange_type_s5.caption" resname="filterrange_type_s5.caption">
+        <source><![CDATA[S5<br />The range must be between the first and second value.]]></source>
+        <target>S5&lt;br /&gt;Der Bereich muss zwischen dem ersten und dem zweiten Wert liegen.</target>
+      </trans-unit>
+      <trans-unit id="filterrange_type_s5.description" resname="filterrange_type_s5.description">
+        <source><![CDATA[The first value must be smaller and the second value must be larger than the range - this is option "S1" inverted.
+<pre>S5: ------13---------------22--<pre>]]></source>
+        <target>Der erste Wert muss kleiner und der zweite Wert muss größer als der Bereich sein - dies ist die umgekehrte Option &quot;S1&quot;.
+&lt;pre&gt;S5: ------13---------------22--&lt;pre&gt;
+</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
