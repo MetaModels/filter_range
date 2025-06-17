@@ -35,6 +35,7 @@ use MetaModels\FrontendIntegration\FrontendFilterOptions;
  * Filter "value in range of 2 fields" for FE-filtering.
  *
  * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
+ * @SuppressWarnings(PHPMD.NPathComplexity)
  */
 abstract class AbstractRange extends Simple
 {
