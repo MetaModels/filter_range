@@ -3,7 +3,7 @@
 /**
  * This file is part of MetaModels/filter_range.
  *
- * (c) 2012-2024 The MetaModels team.
+ * (c) 2012-2025 The MetaModels team.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -15,7 +15,7 @@
  * @author     Stefan Heimes <stefan_heimes@hotmail.com>
  * @author     Richard Henkenjohann <richardhenkenjohann@googlemail.com>
  * @author     Ingolf Steinhardt <info@e-spin.de>
- * @copyright  2012-2024 The MetaModels team.
+ * @copyright  2012-2025 The MetaModels team.
  * @license    https://github.com/MetaModels/filter_range/blob/master/LICENSE LGPL-3.0-or-later
  * @filesource
  */
@@ -35,6 +35,7 @@ use MetaModels\FrontendIntegration\FrontendFilterOptions;
  * Filter "value in range of 2 fields" for FE-filtering.
  *
  * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
+ * @SuppressWarnings(PHPMD.NPathComplexity)
  */
 abstract class AbstractRange extends Simple
 {
@@ -364,7 +365,7 @@ abstract class AbstractRange extends Simple
         $value = $this->getParameterValue($arrFilterUrl);
 
         // No filter values, get out.
-        if (!is_array($value)) {
+        if (!\is_array($value) || [] === $value) {
             $objFilter->addFilterRule(new StaticIdList(null));
 
             return;
